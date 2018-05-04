@@ -1,0 +1,54 @@
+<ng-form name="unitForm[{{index}}]" ng-show="model.status">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <div class="input-group">
+                    <input class="form-control" ng-model="model.title" type="text" ng-required="true" name="title"
+                           placeholder="{{'Add unit title here...' | translate}}">
+                    <span class="input-group-addon"><i class="fa fa-asterisk font-red-sunglo"></i></span>
+                    <label>{{'Unit title' | translate}}</label>
+                </div>
+                <span class="has-error"
+                      ng-show="(unitForm[index].title.$invalid && unitForm[index].title.$dirty)">
+                     <span ng-show="unitForm[index].title.$invalid"
+                           style="opacity: 1"
+                           class="help-block help-block-error">
+                                {{'Title is required' | translate}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group form-md-line-input">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="internal_id" name="internal_id"
+                           ng-model="model.internal_id">
+                    <label for="internal_id">{{'Internal Id' | translate}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 unit-checkboxes">
+            <div class="md-checkbox md-checkbox-inline" style="margin-top: 15px;" tooltip="{{'Have no fear, your rent will be here with automated collection. Check our pricing or contact us directly.' | translate}}">
+                <input type="checkbox" ng-model="model.is_pro" id="upro_{{index}}" ng-true-value="1" ng-false-value="0" class="md-check">
+                <label for="upro_{{index}}">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    {{'Collect rent' | translate}}</label>
+            </div>
+            <div class="md-checkbox md-checkbox-inline" style="margin: 0px;" tooltip="{{'Have multiple accounts where you share listings? Automate your process.' | translate}}">
+                <input type="checkbox" ng-model="model.is_autoshare"  id="autoshare_{{index}}" ng-true-value="1" ng-false-value="0"  class="md-check">
+                <label for="autoshare_{{index}}">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                    {{'Share when vacant' | translate}}</label>
+            </div>
+        </div>
+        <div class="col-md-2" style="margin-top: 40px">
+            <a class="btn red button-delete" ng-click="remove()">
+                <i class="fa fa-remove"></i>{{'Delete' | translate}} </a>
+        </div>
+    </div>
+</ng-form>

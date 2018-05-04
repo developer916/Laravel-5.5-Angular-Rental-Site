@@ -1,0 +1,63 @@
+<div class="portlet light">
+    <div class="portlet-title" ng-if="message != null">
+        <div class="caption font-green-sharp">
+            <i class="icon-eyeglasses font-green-sharp"></i>
+            <span class="caption-subject bold uppercase">{{ message.subject }}</span>
+        </div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a class="btn btn-sm green" href="#/messages/compose/reply/{{ message.id }}"><i class="fa fa-reply"></i> {{ 'Reply' | translate }}</a>
+                <a class="btn btn-sm green dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#/messages/compose/reply/{{ message.id }}/reply-all"><i class="fa fa-reply-all"></i> {{ 'Reply all' | translate }}</a></li>
+                    <li><a href="" style="text-decoration: line-through"><i class="fa fa-share"></i> {{ 'Forward' | translate }}</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-sm red" ng-click="deleteMessage(message.id)"><i class="fa fa-trash-o"></i> {{ 'Delete' | translate }}</a>
+            <a class="btn btn-sm red" href="#/messages"><i class="fa fa-times"></i> {{ 'Close' | translate }}</a>
+        </div>
+    </div>
+    <div class="portlet-body row" ng-if="message != null">
+        <hr class="no-up">
+        <div class="col-md-8">
+            <div class="message-sender">
+                <img ng-src="{{message.sender.profile.avatar}}" ng-if="message.sender.profile.avatar != null" width="27px" height="27px" />
+                <img src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/avatars/avatar9.png" ng-if="message.sender.profile.avatar == null" width="27px" height="27px" />
+                <a class="" href="#/users/{{message.sender.id}}">{{ message.sender.name }}</a>
+            </div>
+            <div class="message-text">
+                {{ message.text }}
+            </div>
+            <div class="message-date text-success">
+                <i class="fa fa-calendar"></i> <span am-time-ago="message.created_at" tooltip="{{message.created_at}}"></span>
+            </div>
+        </div>
+        <div class="col-md-4 text-right">
+            <span class="tags" ng-if="!editTags" ng-repeat="tag in message.tags">
+                <a href="#/messages/tags/{{tag.name}}" class="badge" ng-style="{'background-color': (tag.color ? '#' + tag.color : 'gray')}">
+                    <i ng-if="tag.icon" class="fa fa-{{tag.icon}}"></i> {{tag.name}}
+                </a>
+            </span>
+            <span class="message-date" ng-if="message.tags.length == 0 && !editTags">No tags set</span>
+            <ui-select multiple tagging="createTag" ng-if="editTags" ng-model="tags.selected" id="tagselector" theme="bootstrap" class="form-control">
+                <!-- Selected tags -->
+                <ui-select-match placeholder="{{ 'Select some tags or hit save' | translate }}">
+                    <span ng-style="{'color':($item.color?'#{{$item.color}}':'')}"><i ng-if="$item.icon" class="fa fa-{{$item.icon}}"></i> {{$item.name}}</span>
+                </ui-select-match>
+                <!-- Possible tags -->
+                <ui-select-choices repeat="tag in tags.all | filter: $select.search track by tag.name">
+                    <span ng-style="{'color':(tag.color?'#{{tag.color}}':'')}"><i ng-if="tag.icon" class="fa fa-{{tag.icon}}"></i> {{tag.name}}</span>
+                </ui-select-choices>
+            </ui-select>
+            <a class="btn btn-xs blue" ng-click="toggleEditTags()" ng-if="!editTags"><i class="fa fa-pencil"></i> {{'Edit tags' | translate}}</a>
+            <a class="btn btn-xs green" ng-click="updateTags();" ng-if="editTags"><i class="fa fa-floppy-o"></i> {{'Save tags' | translate}} </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="message-sender text-success" ng-if="message == null">
+                {{ 'Loading...' | translate }}
+            </div>
+        </div>
+    </div>
+</div>

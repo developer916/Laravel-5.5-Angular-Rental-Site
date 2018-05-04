@@ -1,0 +1,151 @@
+<div class="portlet light">
+    <ng-form name="transactionForm" novalidate>
+        <div class="row margin-top-m" style="margin-bottom: 30px">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-7" ng-if="model.removeble">
+                        <div class="form-group form-md-line-input">
+                            <select class="form-control" ng-model="model.transaction_category_id"
+                                    ng-change="setDefaultRecurring()"
+                                    ng-options="c.id as c.title for c in transactionCategories">
+                                <option value="">{{'Other' | translate}}</option>
+                            </select>
+                            <label>{{'Transaction category' | translate}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-7" ng-if="!model.removeble">
+                        <div class="form-group form-md-line-input">
+                            <input class="form-control" type="text" ng-readonly="true"
+                                   value="{{transactionCategoriesAssoc[model.transaction_category_id]['title'] | translate}}">
+                            <label>{{'Transaction category' | translate}}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group form-md-line-input">
+                            <select class="form-control" name="funit" id="funit"
+                                    ng-model="model.unit_id"
+                                    ng-options="c.id as c.title for c in units">
+                                <option value="">{{'No unit' | translate}}</option>
+                            </select>
+                            <label>{{'Unit' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-m">
+                    <div class="col-md-7">
+                        <div class="form-group form-md-line-input">
+                            <input class="form-control" ng-model="model.description" type="text"
+                                   placeholder="{{'Add transaction description here...' | translate}}">
+                            <label>{{'Description' | translate}}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group form-md-line-input">
+                            <select class="form-control" name="frecurrings" id="frecurrings"
+                                    ng-model="model.transaction_recurring_id"
+                                    ng-options="key|number as value for (key,value) in transactionRecurrings">
+                                <option value="">{{'No recurring' | translate}}</option>
+                            </select>
+                            <label>{{'Reccuring?' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 form-inline">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-group form-md-line-input">
+                            <div class="input-group" style="width: 180px">
+                                <span class="input-group-addon"> <i class="fa">{{currencySymbol}}</i></span>
+                                <input type="text" class="form-control" name="amount" ng-currency currency-symbol=""
+                                       ng-change="changeTotal()"
+                                       ng-model="model.amount" ng-required="true"
+                                       placeholder="{{'Amount' | translate}}">
+                                <span class="input-group-addon"><i class="fa fa-asterisk font-red-sunglo"></i></span>
+                                <label>{{'Amount' | translate}}</label>
+                            </div>
+                    <span class="has-error"
+                          ng-show="(model.errors.amount || hasError(transactionForm.amount,transactionForm.amount.$invalid))">
+                        <span ng-show="model.errors.amount"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                {{model.errors.amount[0]}}
+                        </span>
+                     <span ng-show="transactionForm.amount.$invalid"
+                           style="opacity: 1"
+                           class="help-block help-block-error">
+                                {{'Amount is required' | translate}}
+                    </span>
+                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group" style="padding-top: 30px;margin-right: 20px">
+                            <div class="md-checkbox">
+                                <input type="checkbox" id="checkbox_t" class="md-check" ng-model="tax"
+                                       ng-change="taxChange()">
+                                <label for="checkbox_t">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    {{'Tax' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-top-m">
+                    <div class="col-md-7">
+                        <div class="form-group form-md-line-input margin-bottom-m" ng-show="tax">
+                            <div class="input-group" style="width: 180px">
+                                <span class="input-group-addon"> <i class="fa">%</i></span>
+                                <input type="number" ng-model="model.amount_tax" class="form-control"
+                                       placeholder="{{'Tax' | translate}}">
+                                <span class="input-group-addon"><i class="fa fa-asterisk font-red-sunglo"></i></span>
+                                <label>{{'Tax' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group" style="padding-top: 30px;margin-right: 20px" ng-show="tax">
+                            <div class="md-checkbox">
+                                <input type="checkbox" ng-model="model.amount_tax_included" id="checkbox_ti"
+                                       ng-change="changeTotal()"
+                                       class="md-check">
+                                <label for="checkbox_ti">
+                                    <span></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    {{'Included' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group form-md-line-input">
+                            <div class="input-group" style="width: 180px">
+                                <span class="input-group-addon"> <i class="fa">{{currencySymbol}}</i></span>
+                                <input type="text" class="form-control" name="amount_total" ng-currency
+                                       currency-symbol=""
+                                       ng-model="model.amount_total" ng-readonly="true"
+                                       placeholder="{{'Total' | translate}}">
+                                <label>{{'Total' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-40">
+            <div class="col-md-12">
+                <a class="btn green button-save" ng-click="save()">
+                    {{'Save' | translate}} </a>
+                <a class="btn red button-cancel" ng-click="cancel()" ng-if="model.removeble">
+                    {{'Cancel' | translate}} </a>
+            </div>
+        </div>
+    </ng-form>
+</div>

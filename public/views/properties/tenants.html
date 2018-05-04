@@ -1,0 +1,24 @@
+<div id="action-panel">
+
+</div>
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-green-sharp">
+            <i class="icon-settings font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase">
+                        <span ng-if="propertyTenantsCtrl.model.title">{{ ::propertyTenantsCtrl.model.title}} &raquo; </span>
+                        {{'Tenants' | translate}}</span>
+        </div>
+        <div class="actions">
+            <a ng-click="propertyTenantsCtrl.manageTenant()" class="btn default green">
+                <i class="fa fa-plus"></i>
+                <span class="hidden-480">{{'New Tenant' | translate}} </span>
+            </a>
+
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div tenants-grid></div>
+    </div>
+</div>
+

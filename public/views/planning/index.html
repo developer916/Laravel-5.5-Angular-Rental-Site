@@ -1,0 +1,64 @@
+<div ui-view></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <!-- Task details -->
+        <div class="portlet light" ng-if="selectedTask != null">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="icon-check font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase">{{ tasks[selectedTask].name }}</span>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-xs green" ng-click="toggleCompleteTask(selectedTask)"><i class="fa fa-check"></i> {{ 'Mark done' | translate }}</a>
+                    <a class="btn btn-xs green"><i class="fa fa-pencil"></i> {{ 'Edit' | translate }}</a>
+                    <a class="btn btn-xs red" ng-click="deleteTask(selectedTask)"><i class="fa fa-trash-o"></i> {{ 'Delete' | translate }}</a>
+                    <a class="btn btn-xs blue" ng-click="deselectTask()"><i class="fa fa-times"></i> {{ 'Close' | translate }}</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                {{ tasks[selectedTask].description }}
+                <div class="task-details">
+                    <span class="task-duedate"><i class="fa fa-calendar"></i> {{ tasks[selectedTask].due }}</span>
+                    <span class="task-priority"><i class="fa fa-flag"></i> {{ tasks[selectedTask].priority }}</span>
+                </div>
+            </div>
+        </div>
+        <!-- End task details -->
+
+        <!-- Task overview -->
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="icon-check font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase">{{'Tasks' | translate }}</span>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-xs green" href="#/planning/task/create"><i class="fa fa-pencil"></i> {{ 'New' | translate }}</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table">
+                    <thead><tr>
+                        <th>{{ 'Name' | translate }}</th>
+                        <th>{{ 'Due' | translate }}</th>
+                        <th>{{ 'Actions' | translate }}</th>
+                    </tr></thead>
+                    <tbody>
+                    <tr ng-repeat="task in tasks track by task.id">
+                        <td ng-style="task.completed == 1 ? {'text-decoration': 'line-through'} : {}">{{ task.name }}</td>
+                        <td>{{ task.due }}</td>
+                        <td align="right">
+                            <a class="btn btn-xs green" tooltip="Mark as Done" ng-click="toggleCompleteTask($index)"><i class="fa fa-check"></i></a>
+                            <a class="btn btn-xs blue" tooltip="View details" ng-click="selectTask($index)" ng-disabled="selectedTask == $index"><i class="fa fa-{{ (selectedTask == $index) ? 'arrow-up' : 'eye' }}"></i></a>
+                            <a class="btn btn-xs red" tooltip="Delete task" ng-click="deleteTask($index)"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End task overview -->
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    </div>
+</div>

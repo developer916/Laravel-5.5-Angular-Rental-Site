@@ -1,0 +1,88 @@
+<div class="portlet light">
+    <h3 class="block font-green" style="text-align:center;margin-bottom: 40px;">
+        {{'Find new tenants' | translate}}
+        <br>
+        <small style="color:#999">{{'Share on multiple platforms, manage just here' | translate}}
+        </small>
+    </h3>
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-md-3" style="margin-top: 10px">
+            {{'What type of tenants you prefer?' | translate}}
+        </div>
+        <div class="col-md-5">
+            <div class="md-checkbox-inline">
+                <div class="md-checkbox">
+                    <input type="checkbox" id="checkbox61" class="md-check"
+                           ng-model="propertySettingsCtrl.property.media.tenants.students">
+                    <label for="checkbox61">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                        {{'Students' | translate}}</label>
+                </div>
+                <div class="md-checkbox">
+                    <input type="checkbox" id="checkbox71" class="md-check"
+                           ng-model="propertySettingsCtrl.property.media.tenants.working">
+                    <label for="checkbox71">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                        {{'Working' | translate}}</label>
+                </div>
+                <div class="md-checkbox">
+                    <input type="checkbox" id="checkbox81" class="md-check"
+                           ng-model="propertySettingsCtrl.property.media.tenants.all">
+                    <label for="checkbox81">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                        {{'All' | translate}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 40px">
+        <div class="col-md-3"  style="margin-top: 10px">
+            {{'Where would you like to share?' | translate}}
+        </div>
+        <div class="col-md-5">
+            <div class="md-checkbox-inline">
+                <div class="md-checkbox">
+                    <input type="checkbox" id="checkbox6" class="md-check"
+                           ng-model="propertySettingsCtrl.property.media.share.social_media">
+                    <label for="checkbox6">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                        {{'Social Media' | translate}}</label>
+                </div>
+                <div class="md-checkbox">
+                    <input type="checkbox" id="checkbox7" class="md-check"
+                           ng-model="propertySettingsCtrl.property.media.share.online_platforms">
+                    <label for="checkbox7">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                        {{'Online platforms' | translate}}</label>
+                </div>
+                <div class="md-checkbox">
+                    <input type="checkbox" id="checkbox8" class="md-check"
+                           ng-model="propertySettingsCtrl.property.media.share.all">
+                    <label for="checkbox8">
+                        <span></span>
+                        <span class="check"></span>
+                        <span class="box"></span>
+                        {{'All' | translate}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn green button-save" ng-click="propertySettingsCtrl.update()">
+                    {{'Save' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>

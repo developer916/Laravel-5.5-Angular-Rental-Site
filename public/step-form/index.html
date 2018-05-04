@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Step Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/gijgo@1.8.1/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="info">
+  <h1>Rentling Tenant Signup</h1>
+  <!--<span>-->
+    <!--Made with-->
+    <!--<i class="fa fa-beer"></i>-->
+    <!--by-->
+    <!--<a href="">Super Man</a>-->
+    <!--<div class="spoilers">-->
+      <!--This is ...</a> -->
+    <!--</div>-->
+  <!--</span>-->
+</div>
+
+<div class="row">
+  <ul id="progressbar">
+    <li class="active"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>    
+  </ul>
+</div>
+
+<form class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" id="TenantDepositRelayForm">
+
+  <!-- WELCOME FIELD SET --> 
+  <fieldset>
+    <h2 class="fs-title text-left">Welcome to the Rentling Deposit Relay service</h2>    
+    <div class="row mt-5">
+      <div class="col-md-8">
+        <div class="">
+          You will go through several screens to provide all required information. After completion, we notify landlord and send you an e-mail with payment details. Let's get started.
+        </div>
+        <div class="text-danger mt-2">
+          For verification, you will need a mobile phone and access to your e-mail.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <img src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/MoneyBag1.jpg" width="141" height="151">
+      </div>
+    </div>
+    
+    <input type="button" data-page="1" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- AGREEMENT FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Please read our terms and conditions<span class="text-danger">*</span></h2>    
+        <div class="" id="">        
+          <label class="btn active">
+            <input type="checkbox" name='agreement1' class="" required="required" data-rule-required="true" data-msg-required="Please check the agreement"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span class="agreement-msg"> I agree to the Rentling </span><a href='https://rdvit1.wixsite.com/rentling/terms-and-conditions' class="text-info" target="_blank">terms & conditions.</a>
+          </label> 
+        </div>
+    <input type="button" data-page="2" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="2" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- AGREEMENT FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Please also agree to our privacy policy<span class="text-danger">*</span></h2>    
+        <div class="form-item webform-component webform-component-textfield field hs-form-field" id="">        
+          <label class="btn active">
+            <input type="checkbox" name='agreement2' class="form-text hs-input" required="required" data-rule-required="true" data-msg-required="Please check the agreement"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span class="agreement-msg"> I agree to the Rentling </span><a href='https://rdvit1.wixsite.com/rentling/privacy-policy' class="text-info" target="_blank">terms & conditions.</a>
+          </label>           
+        </div>
+    <input type="button" data-page="3" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="3" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- ADDRESS SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Address you will rent<span class="text-danger">*</span></h2>
+    <h3 class="fs-subtitle text-left">Start typing the whole address, including apartment or house nr, then select from the list.</h3> 
+      
+      <div class="row mt-2" id="locationField">
+          <div class="col-md-12">
+            <input id="autocomplete" class="form-control hs-input form-text " placeholder="Enter your address" required="required" data-msg-required="Please enter address" onFocus="geolocate()" type="text">
+            <span class="error1" style="display: none;">
+              <i class="error-log fa fa-exclamation-triangle"></i>
+            </span>
+          </div>          
+      </div>
+      <div class="address-detail">
+          <hr>
+          <div class="row" id="">
+            <div class="col-md-6">          
+              <input id="route" class="form-control" name="route" required="required"  type="text" data-rule-required="true" >
+              <label class="below-description">Street address</label>
+            </div>
+            <div class="form-group col-md-6">          
+              <input class="form-control" id="street_number" name="street_number" type="text">           
+                <label></label>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">          
+                <input class="form-control" id="locality" name="locality" required="required">
+                <label class="below-description">City</label>
+              </div>
+              <div class="col-md-6">          
+                <input class="form-control" id="administrative_area_level_1" required="required" name="state"></input>
+                <label class="below-description">State</label>
+              </div>
+            </div>
+          <div class="row">
+              <div class="col-md-6">          
+                <input class="form-control" id="postal_code" name="postal_code" required="required"  type="text" data-rule-required="true">
+                <label class="below-description">Postal/Zip Code</label>
+              </div>
+              <div class="col-md-6">          
+                <input class="form-control" id="country" name="country" required="required"></input>
+                <label class="below-description">Country</label>
+              </div>
+          </div>
+      </div>
+    <input type="button" data-page="4" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="4" name="next" class="next action-button" value="Next" disabled="true" />    
+  </fieldset>
+
+  <!-- MOVE IN DATE FIELD SET --> 
+  <fieldset>
+    <h2 class="fs-title text-left">Your move in date<span class="text-danger">*</span></h2>
+    <h3 class="fs-subtitle">Click on the calendar and select your move in date. One day after move in, we automatically transfer your payment to the landlord. You can change this date later if needed.</h3>        
+        <div class="calendar-wrapper" id=""> 
+          <input id="datepicker" class="" name="move_in_date" type="text">
+          <label class="below-description">Date</label>
+        </div>
+    <input type="button" data-page="5" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="5" name="next" class="next action-button" value="Next" disabled="true"/>    
+  </fieldset>
+
+  <!-- LANDLORD NAME FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Landlord name<span class="text-danger">*</span></h2>
+    <h3 class="fs-subtitle"></h3>
+        <div class="row">
+            <div class="col-md-6">          
+              <input class="form-control mb-0" id="landlord-fname" name="landlord-fname" required="required" data-rule-required="true" data-msg-required="Please enter a name">
+              <span class="error1 error1-short" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+              <label class="below-description">First Name</label>
+            </div>
+            <div class="col-md-6">          
+              <input class="form-control mb-0" id="landlord-lname" name="landlord-lname" required="required" data-msg-required="Please enter a name"></input>
+              <span class="error1 error1-short" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+              <label class="below-description">Last Name</label>
+            </div>
+        </div>
+      
+    <input type="button" data-page="6" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="6" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- LANDLORD EMAIL FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Landlord Email<span class="text-danger">*</span></h2>  
+    <h3 class="fs-subtitle text-left">Please double check the email below, otherwise we cannot contact landlord.</h3>  
+        <div class="p-relative" id="">                  
+          <input name='landlord-email' class="mb-0" type="email" required="required" data-rule-required="true" data-msg-required="Please enter a email">
+          <span class="error1 error1-down" style="display: none;">
+              <i class="error-log fa fa-exclamation-triangle"></i>
+          </span>
+          <label class="below-description">example@example.com</label>
+        </div>
+    <input type="button" data-page="7" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="7" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- LANDLORD MOBILE FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Landlord mobile phone nr<span class="text-danger"></span></h2>
+    <h3 class="fs-subtitle text-left">When your payment reaches our system, we inform landlord via email and SMS to reserve the accommodation for you. This is an important step. If you don't have landlord's mobile number, contact landlord to supply it.</h3>
+        <div class="row">
+            <div class="col-md-3">          
+              <input class="form-control mb-0" id="landlord-country-code" name="landlord-country-code" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>              
+              <label class="below-description">Country Code</label>
+            </div>
+            <div class="col-md-3">          
+              <input class="form-control mb-0" id="landlord-area-code" name="landlord-area-code" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+              <label class="below-description">Area Code</label>
+            </div>
+            <div class="col-md-6">          
+              <input class="form-control mb-0" id="landlord-phone-number" name="landlord-phone-number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+              <label class="below-description">Phone Number</label>
+            </div>
+        </div>
+      
+    <input type="button" data-page="8" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="8" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- LANDLORD IBAN FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Landlord IBAN<span class="text-danger"></span></h2>  
+    <h3 class="fs-subtitle text-left"></h3>  
+        <div class="p-relative" id="">                  
+          <input name='landlord-iban' class="mb-0" type="text" id ='landlord-iban'>          
+          <label class="below-description">skip, if you do not know the landlord IBAN account number. We will contact landlord to supply it.</label>
+        </div>
+    <input type="button" data-page="9" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="9" name="next" class="next action-button" value="Next" id="landlord-next-action-button" />    
+  </fieldset>
+
+  <!-- DEPOSIT AMOUNT FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Deposit amount<span class="text-danger">*</span></h2>  
+    <h3 class="fs-subtitle text-left"></h3>  
+        <div class="p-relative" id="">                  
+          <input name='deposit-amount' class="mb-0" type="number" required="required" data-rule-required="true" data-msg-required="Please enter a amount">
+          <span class="error1 error1-down" style="display: none;">
+              <i class="error-log fa fa-exclamation-triangle"></i>
+          </span>          
+          <label class="below-description">Deposit amount you agreed with landlord, in the  local currency of landlord.</label>
+          
+        </div>
+    <input type="button" data-page="10" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="10" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- YOUR NAME FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Your name<span class="text-danger">*</span></h2>  
+    <h3 class="fs-subtitle text-left"></h3>  
+        <div class="row">
+            <div class="col-md-6">          
+              <input class="form-control mb-0" id="your-fname" name="your-fname" required="required" data-rule-required="true" data-msg-required="Please enter a name">
+              <span class="error1 error1-short" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+              <label class="below-description">First Name</label>
+            </div>
+            <div class="col-md-6">          
+              <input class="form-control mb-0" id="your-lname" name="your-lname" required="required" data-msg-required="Please enter a name"></input>
+              <span class="error1 error1-short" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+              <label class="below-description">Last Name</label>
+            </div>
+        </div>
+    <input type="button" data-page="11" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="11" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- YOUR EMAIL FIELD SET -->  
+  <fieldset>
+    <h2 class="fs-title text-left">Your Email<span class="text-danger">*</span></h2>  
+    <h3 class="fs-subtitle text-left">Please double check the email below, otherwise we cannot contact landlord.</h3>  
+        <div class="row">
+            <div class="col-md-12">
+              <input name='your-email' class="mb-0" type="email" required="required" data-rule-required="true" data-msg-required="Please enter a email">
+              <span class="error1 error1-short" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+              <label class="below-description">example@example.com</label>
+            </div>
+            <!-- <div class="col-md-6">
+              <input type="button" value="Send Verification Code"/> 
+            </div> -->
+        </div>
+    <input type="button" data-page="12" name="previous" class="previous action-button" value="Previous" />
+    <input type="button" data-page="12" name="next" class="next action-button" value="Next" />    
+  </fieldset>
+
+  <!-- YOUR MOBILE FIELD SET -->
+  <fieldset>    
+    <h2 class="fs-title text-left">Your mobile phone nr<span class="text-danger"></span></h2>
+      <h3 class="fs-subtitle text-left">Select your country, enter your mobile number without the preceding 0. For example: + 31 12345678.</h3>
+          <div class="row">            
+              <div class="col-md-4">          
+                <input class="form-control mb-0" id="your-area-code" name="your-area-code" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                <label class="below-description">Area Code</label>
+              </div>
+              <div class="col-md-8">          
+                <input class="form-control mb-0" id="your-phone-number" name="your-phone-number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                <label class="below-description">Phone Number</label>
+              </div>
+          </div>        
+      <input type="button" data-page="13" name="previous" class="previous wide-btn action-button" value="Previous" />
+      <input type="button" data-page="13" name="next" class="review wide-btn next action-button" value="Review and Submit"  id="review-next-action-button" />    
+  </fieldset>
+
+  <fieldset>    
+    <h2 class="fs-title text-left">Review<span class="text-danger"></span></h2>
+    <h3 class="fs-subtitle text-left"></h3>
+    <div class="" id="review-content">            
+        
+    </div>        
+    <input type="button" data-page="14" name="previous" class="previous wide-btn backform action-button" value="Back To Form" />
+    <input type="button" data-page="14" name="next" class="submit wide-btn action-button" value="Submit" />  
+  </fieldset>
+  
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.8.1/combined/js/gijgo.min.js" type="text/javascript"></script>
+<script  src="js/index.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2m82gD2lr_zNPDvAtAgjvPOKT411iHZc&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+
+
+
+</body>
+
+</html>

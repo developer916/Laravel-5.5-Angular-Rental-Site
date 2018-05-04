@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">{{'Create New Email' | translate }}</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"
+                       data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form" name="emailForm" class="form-horizontal"
+                      ng-submit="submitForm(emailForm.$valid)" novalidate>
+                    <div class="form-body">
+                        <div class="form-group form-md-line-input"
+                             ng-class="{ 'has-error' : emailForm.name.$invalid && !emailForm.name.$pristine }">
+                            <label class="col-md-2 control-label" for="email_subject">{{'Email Subject' |
+                                translate}}</label>
+
+                            <div class="col-md-10">
+                                <input type="text"
+                                       class="form-control"
+                                       id="email_subject"
+                                       name="email_subject"
+                                       ng-model="formData.email_subject" required
+                                       ng-minlength="3"
+                                       placeholder="Email subject : You have been invited to rentling">
+
+                                <div class="form-control-focus">
+                                </div>
+                                <span class="help-block" ng-show="emailForm.name.$error.minlength">{{'Field is required' | translate}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="event">{{'Event' | translate}}</label>
+
+                            <div class="col-md-10">
+                                <select name="event" id="event" class="form-control"
+                                        ng-model="formData.event"
+                                        ng-options="event for event in formData.events"
+                                        >
+                                    <option value="">-- {{'choose event' | translate}} --</option>
+
+                                </select>
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="status">{{'Status' | translate}}</label>
+
+                            <div class="col-md-10">
+                                <div class="radio-list">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" id="status-published" ng-model="formData.status"
+                                               name="optionsRadios"> Published </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="0" id="status-draft" ng-model="formData.status"
+                                               name="optionsRadios"> Draft </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="language_id">{{'Language' | translate}}</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" id="language_id" name="language_id"
+                                        ng-model="formData.language_id"
+                                        >
+                                    <option ng-value="lang.id" ng-repeat="lang in formData.languages">{{lang.name}}</option>
+                                </select>
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="html">{{'HTML' | translate}}</label>
+
+                            <div class="col-md-10">
+                                <textarea class="form-control" name="html" id="html"
+                                          ng-model="formData.html"></textarea>
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group form-md-line-input has-success">-->
+
+                        <!--<div class="col-md-10">-->
+                        <!--{{formData}}-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" ng-disabled="emailForm.$invalid" class="btn blue">{{'Save Email' |
+                                    translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

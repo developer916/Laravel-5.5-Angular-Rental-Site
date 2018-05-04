@@ -1,0 +1,144 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">{{'Publish Language' | translate}}</span>
+                </div>
+                <div class="actions">
+
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"
+                       data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button ng-repeat="lang in languages" ng-click="publish(lang.id)" class="btn btn-circle green-meadow">
+                                <img src="//d6juqcfpyfjk1.cloudfront.net/assets/flags/{{lang.lang_code}}.png"/>
+                                {{'Publish ' | translate}} {{lang.name}}
+                        </button>
+
+                        <button ng-click="index()" class="pull-right btn btn-warning"><img src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/NL-flag.png"/> {{'Index Views' | translate}}
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">{{'Add New Translation' | translate}}</span>
+                </div>
+                <div class="actions">
+
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"
+                       data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form ng-submit="newItem()" class="form-inline margin-bottom-40" role="form">
+
+                            <div class="form-group form-md-line-input has-error">
+                                <div class="input-icon">
+                                    <input type="text" ng-model="newItemFormData.label_key" class="form-control"
+                                           placeholder="Key">
+
+                                    <div class="form-control-focus">
+                                    </div>
+                                    <span class="help-block">{{'Default English Key' | translate}}</span>
+                                    <i class="fa fa-key"></i>
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input has-error">
+                                <div class="input-icon">
+                                    <input type="text" ng-model="newItemFormData.label" class="form-control"
+                                           placeholder="Value">
+
+                                    <div class="form-control-focus">
+                                    </div>
+                                    <span class="help-block">{{'Translation' | translate }}</span>
+                                    <i class="fa fa-language"></i>
+
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input has-error">
+                                <div class="input-icon">
+                                    <select name="language_id" ng-model="newItemFormData.language_id">
+                                        <option ng-repeat="lang in languages" ng-value="lang.id">{{lang.name}}</option>
+                                    </select>
+
+                                    <div class="form-control-focus">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">{{'Add' | translate}}
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6" ng-repeat="lang in languages">
+
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">{{'Current Translations' | translate}}
+                        <img src="//d6juqcfpyfjk1.cloudfront.net/assets/flags/{{lang.lang_code}}.png"/></span>
+                </div>
+                <div class="actions">
+
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"
+                       data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form  class="form-inline margin-bottom-40" role="form">
+                    <div class="row" ng-repeat="trans in translations[lang.id] track by $index">
+                        <div class="form-group form-md-line-input col-md-12">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" ng-model="trans.key" placeholder="Key" value="{{trans.key}}">
+
+                                <div class="form-control-focus"></div>
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input col-md-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" ng-model="trans.value" placeholder="Value" value="{{trans.value}}">
+
+                                <div class="form-control-focus">
+                                </div>
+                                <i class="fa fa-language"></i>
+
+                            </div>
+                        </div>
+                        <button type="button" ng-click="updateItem(lang.id,$index,trans.id)" class="btn btn-success">{{'Save' | translate}}</button>
+                        <hr />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

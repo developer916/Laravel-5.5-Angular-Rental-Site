@@ -1,0 +1,161 @@
+<div class="margin-bottom-m"                                                                                                                                                                                                        >
+    <ng-form role="form" name="inviteTenantsForm[index]"
+             ng-submit="submitForm(inviteTenantsForm[index].$valid)">
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input type="text" ng-model="row.tenant.name" ng-required="true"
+                       placeholder="{{'Name' | translate}}"
+                       class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input">
+                <input ng-model="row.tenant.email" type="email" class="form-control" id="email" ng-required="true"
+                       placeholder="Tenant Email">
+            <span class="has-error"
+                  ng-show="(row.errors.tenant.email)">
+                <span ng-show="row.errors.tenant.email"
+                      style="opacity: 1"
+                      class="help-block help-block-error">
+                    {{row.errors.tenant.email[0]}}
+                </span>
+            </span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group form-md-line-input has-info">
+                <a ng-click="(inviteTenantsForm[index].$valid ? save():false)"
+                   ng-disabled="inviteTenantsForm[index].$invalid"
+                   class="btn blue button-next">
+                    {{'Save' | translate}} <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+
+                <a ng-if="row.tenant.tenantProperty1On1==0" ng-show="row.tenant.id"
+                       ng-click="((inviteTenantsForm[index].$valid && row.tenant.id) ? assignTenantModal():false)"
+                       ng-disabled="(inviteTenantsForm[index].$invalid || !row.tenant.id)"
+                       class="btn blue button-next">
+                        {{(row.tenant.property_tenant)?  ('Update assignment' | translate) : ('Assign to property' | translate)}}
+                        <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+
+            </div>
+        </div>
+    </ng-form>
+    <div style="clear: both"></div>
+    <div class="modal" id="assign_tenant_modal_{{index}}" tabindex="-1" data-backdrop="true"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true"></button>
+                    <h4 class="modal-title">{{'Assign tenant to property!' | translate}}</h4>
+                </div>
+                <div class="modal-body">
+                    <ng-form role="form" name="assignTenantsForm[index]">
+                        <div class="col-md-6 margin-bottom-40">
+                            <div class="form-group form-md-line-input">
+                                <select placeholder="{{'Properties' | translate }}" class="form-control" required="true"
+                                        name="property_id[index]"
+                                        ng-model="row.tenant.property_tenant.property_id"
+                                        ng-options="item.id|number as item.title for item in properties">
+                                    <option value="">{{'No property' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 margin-bottom-40">
+                            <div class="form-group form-md-line-input">
+                                <select class="form-control" name="funit" id="funit"
+                                        ng-model="row.tenant.property_tenant.unit_id"
+                                        ng-options="c.id as c.title for c in properties[row.tenant.property_tenant.property_id].units">
+                                    <option value="">{{'No unit' | translate}}</option>
+                                </select>
+                                <label>{{'Unit' | translate}}</label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 margin-bottom-40">
+                            <div class="form-group form-md-line-input">
+                                <input class="form-control date-picker" type="text"
+                                       ng-model="row.tenant.property_tenant.start_date"
+                                       name="fstart_date[index]" valid-date
+                                       ng-required="true"
+                                       placeholder="{{'Start date' | translate }}">
+                                <span class="has-error" ng-show="(row.tenant.property_tenant.errors.start_date)">
+                                    <span ng-show="row.tenant.property_tenant.errors.start_date"
+                                          style="opacity: 1"
+                                          class="help-block help-block-error">
+                                        {{row.tenant.property_tenant.errors.start_date[0]}}
+                                    </span>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 margin-bottom-40">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control date-picker"
+                                       ng-model="row.tenant.property_tenant.end_date"
+                                       ng-required="true"
+                                       placeholder="{{'End date' | translate}}">
+                                       <span class="has-error"
+                                             ng-show="(row.tenant.property_tenant.errors.end_date)">
+                                                <span ng-show="row.tenant.property_tenant.errors.end_date"
+                                                      style="opacity: 1"
+                                                      class="help-block help-block-error">
+                                                        {{row.tenant.property_tenant.errors.end_date[0]}}
+                                                </span>
+                                        </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 margin-bottom-40">
+                            <div class="form-group form-md-line-input">
+                                <select class="form-control"
+                                        name="fcollection_day"
+                                        ng-model="row.tenant.property_tenant.collection_day"
+                                        ng-options="n for n in rangeCollectionDay">
+                                </select>
+                                <label>{{'Collection day' | translate }}</label>
+                            </div>
+                        </div>
+
+                       <!-- <div class="col-md-12 margin-bottom-40">
+                            <div class="form-group form-md-line-input has-success">
+                                <div class="input-group" style="padding-top: 0px">
+                                    <span class="input-group-addon"><span class="fa fa-{{currency}}"></span></span>
+                                    <input type="text" ng-currency currency-symbol="" class="form-control"
+                                           ng-model="row.tenant.property_tenant.rent"
+                                           placeholder="{{'Rent' | translate}}"
+                                           ng-required="true">
+                                </div>
+                                <span class="has-error"
+                                      ng-show="(row.tenant.property_tenant.errors.rent)">
+                                            <span ng-show="row.tenant.property_tenant.errors.rent"
+                                                  style="opacity: 1"
+                                                  class="help-block help-block-error">
+                                                    {{row.tenant.property_tenant.errors.rent[0]}}
+                                            </span>
+                                    </span>
+                            </div>
+                        </div>-->
+                        <div class="col-md-12 margin-bottom-m">
+                            <div class="form-group form-md-line-input has-info">
+                                <a ng-click="(assignTenantsForm[index].$valid ? assignTenantToProperty():false)"
+                                   ng-disabled="assignTenantsForm[index].$invalid"
+                                   class="btn green button-next">
+                                    {{'Save' | translate}} <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </ng-form>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

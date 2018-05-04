@@ -1,0 +1,1084 @@
+<div class="row margin-top-10" ng-show="guest">
+    <div class="col-md-12">
+        <div class="portlet light">
+          <iframe id=“JotFormIFrame-81120975584360" allowtransparency=“true” ng-src="{{ 'https://form.jotformeu.com/81151927184357?user_id=' + app.userServiceData.user.id | trusted }}"
+                  frameborder=“0" style="width: 80%; margin-left:10%; height:900px" scrolling=“no”> </iframe>
+        </div>
+    </div>
+</div>
+<div class="row margin-top-10 ng-cloak" ng-show="normal">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2">
+            <div class="display">
+
+                <div class="number" ng-if="widgets.role == 'tenant'">
+                    <h3 class="font-green-sharp"> {{widgets.rent_due_date}}
+                        <small class="font-green-sharp"></small>
+                    </h3>
+                    <small>{{'Next due date' | translate}}</small>
+                </div>
+
+                <div class="number" ng-if="widgets.role == 'landlord'">
+                    <div class="ribbon-wrapper-blue"
+                         ng-if="!widgets.totalRent && !widgets.properties  && hasDemo != false">
+                        <div class="ribbon-blue">Demo</div>
+                    </div>
+
+                    <h3 ng-if="hasDemo == false" class="font-green-sharp">
+                        {{app.userServiceData.user.profile.currency.symbol}} {{widgets.totalRent}}</h3>
+                    <h3 ng-if="!widgets.properties  && hasDemo == true" class="font-green-sharp">
+                        {{app.userServiceData.user.profile.currency.symbol}} 2,500</h3>
+                    <small>{{'TOTAL Rent' | translate}}</small>
+                </div>
+                <div class="icon" ng-if="widgets.role == 'landlord'">
+                    <i class="icon-credit-card"></i>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                        <span style="width: 100%;"
+                              class="progress-bar progress-bar-success green-sharp">
+                    <span class="sr-only">100% {{'progress' | translate}}</span>
+                        </span>
+                </div>
+                <!--<div class="status">-->
+                <!--<div class="status-title">-->
+                <!--progress-->
+                <!--</div>-->
+                <!--<div class="status-number">-->
+                <!--76%-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2">
+            <div class="display" ng-if="widgets.role == 'tenant'">
+                <div class="number">
+                    <h3 class="font-red-haze" style="font-size:15px">{{widgets.address}}</h3>
+                    <small>{{'My place' | translate}}</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-home"></i>
+                </div>
+            </div>
+
+            <div class="display" ng-if="widgets.role == 'landlord'">
+                <div class="ribbon-wrapper-blue" ng-if="!widgets.properties && !widgets.totalRent && hasDemo != false">
+                    <div class="ribbon-blue">Demo</div>
+                </div>
+                <div class="number">
+                    <h3 class="font-red-haze" ng-if="hasDemo == false">{{widgets.properties}}</h3>
+
+                    <h3 class="font-red-haze" ng-if="!widgets.properties && !widgets.totalRent  && hasDemo == true">
+                        7</h3>
+                    <small>{{'Properties' | translate}}</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-home"></i>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                                        <span style="width: 100%;" class="progress-bar progress-bar-success red-haze">
+								<span class="sr-only">100% {{'change' | translate}}</span>
+                                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2">
+            <div class="display" ng-if="widgets.role == 'tenant'">
+                <div class="number">
+                    <h3 class="font-blue-sharp">{{widgets.landlord_contact.name}}</h3>
+                    <small style="font-size:10px">{{widgets.landlord_contact.phone}}</small>
+                    <small style="font-size:10px">{{widgets.landlord_contact.email}}</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-user-following"></i>
+                </div>
+            </div>
+
+            <div class="display" ng-if="widgets.role == 'landlord'">
+                <div class="ribbon-wrapper-blue"
+                     ng-if="!widgets.rentedProperties && !widgets.properties && hasDemo  != false">
+                    <div class="ribbon-blue">Demo</div>
+                </div>
+                <div class="number">
+                    <h3 class="font-blue-sharp" ng-if="hasDemo == false">{{widgets.rentedProperties}}</h3>
+                    <h3 class="font-blue-sharp"
+                        ng-if="!widgets.rentedProperties && !widgets.properties && hasDemo == true">4</h3>
+                    <small>{{'Rented properties' | translate}}</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-user-following"></i>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                                        <span style="width: 100%;" class="progress-bar progress-bar-success blue-sharp">
+								<span class="sr-only">100% {{'change' | translate}}</span>
+                                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2">
+            <div class="display" ng-if="widgets.role == 'tenant'">
+                <div class="number">
+                    <h3 class="font-purple-soft">{{widgets.rent_amount}}</h3>
+                    <small>{{'Your rent' | translate}}</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-users"></i>
+                </div>
+            </div>
+
+            <div class="display" ng-if="widgets.role == 'landlord'">
+                <div class="ribbon-wrapper-blue" ng-if="hasDemo == true">
+                    <div class="ribbon-blue">Demo</div>
+                </div>
+                <div class="number">
+                    <h3 class="font-purple-soft" ng-if="hasDemo == false">{{widgets.tenants}}</h3>
+
+                    <h3 class="font-purple-soft" ng-if="!widgets.tenants && !widgets.properties  && hasDemo == true">
+                        12</h3>
+                    <small>{{'Tenants' | translate}}</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-users"></i>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                                        <span style="width: 100%;" class="progress-bar progress-bar-success purple-soft">
+								<span class="sr-only">100% {{'change' | translate}}</span></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row margin-top-10 ng-cloak" ng-show="deposit">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-yellow">{{ depositRelay.count }}</h3>
+                    <small>{{'Deposit Relay' | translate}}</small>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-money"></i>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                    <span style="width: 100%;" class="progress-bar progress-bar-success yellow">
+					<span class="sr-only">100% {{'change' | translate}}</span></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="widgets.role == 'landlord' && normal == 1">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="portlet light ">
+
+            <div class="ribbon-wrapper-blue" ng-if="hasDemo == true">
+                <div class="ribbon-blue">Demo</div>
+            </div>
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font-color hide"></i>
+                    <span class="caption-subject theme-font-color bold uppercase">{{'Month Overview' | translate}}</span>
+                    <span class="caption-helper hide">{{'monthly stats' | translate}}...</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div id="sales_statistics" class="portlet-body-morris-fit morris-chart"
+                         style="height: 260px;text-align:center;">
+                        <script>
+                            $.getJSON('//' + window.location.host + '/dashboard/widgets/stats/monthoverview', function (csv) {
+
+                                if (!csv.total) {
+                                    var csv = {
+                                        expenses: 1250,
+                                        profit: 875,
+                                        total: 2500
+                                    };
+                                }
+//                                    $('#sales_statistics').html('<img class="tomato-data-img" src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/background/tomato_data_100x100.png" /><br />');
+//                                } else {
+
+                                // Make monochrome colors and set them as default for all pies
+                                Highcharts.getOptions().plotOptions.pie.colors = (function () {
+                                    var colors = [],
+                                            base = Highcharts.getOptions().colors[0],
+                                            i;
+
+                                    for (i = 0; i < 20; i += 1) {
+                                        // Start out with a darkened base color (negative brighten), and end
+                                        // up with a much brighter color
+                                        colors.push(Highcharts.Color(base).brighten((i - 3) / 10).get());
+                                    }
+                                    return colors;
+                                }());
+
+                                // Build the chart
+                                $('#sales_statistics').highcharts({
+                                    credits: {enabled: false},
+                                    chart: {
+                                        plotBackgroundColor: null,
+                                        plotBorderWidth: null,
+                                        plotShadow: false,
+                                        type: 'pie'
+                                    },
+                                    title: {
+                                        text: ''
+                                    },
+                                    tooltip: {
+                                        pointFormat: '<b>{point.y}</b>'
+                                    },
+                                    plotOptions: {
+                                        pie: {
+                                            dataLabels: {
+                                                enabled: false,
+                                            }
+                                        },
+                                    },
+                                    series: [{
+                                        showInLegend: true,
+                                        data: [
+                                            {name: "Expenses", y: csv.expenses},
+                                            {name: "Profit", y: csv.profit},
+                                        ]
+                                    }, {
+                                        size: '50%',
+                                        showInLegend: true,
+
+                                        data: [
+                                            {name: "Total", y: csv.total},
+                                        ]
+                                    }]
+                                });
+//                                }
+                            });
+
+                        </script>
+                        <!--<script>-->
+
+                        <!--Morris.Donut({-->
+                        <!--element: 'sales_statistics',-->
+                        <!--data: [-->
+                        <!--{label: "Download Sales", value: 12},-->
+                        <!--{label: "In-Store Sales", value: 30},-->
+                        <!--{label: "Mail-Order Sales", value: 20}-->
+                        <!--]-->
+                        <!--});-->
+
+                        <!--</script>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="portlet light ">
+            <div class="ribbon-wrapper-blue tenant-chart-demo" ng-if="hasDemo == true">
+                <div class="ribbon-blue">Demo</div>
+            </div>
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font-color hide"></i>
+                    <span class="caption-subject theme-font-color bold uppercase">{{'Tenants' | translate}}</span>
+                    <span class="caption-helper hide">{{'tenants status' | translate}}...</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                        <!--<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">-->
+                        <!--<input type="radio" name="options" class="toggle" id="option1">{{'Received' |-->
+                        <!--translate}}</label>-->
+                        <!--<label class="btn btn-transparent grey-salsa btn-circle btn-sm">-->
+                        <!--<input type="radio" name="options" class="toggle" id="option2">{{'Incoming' |-->
+                        <!--translate}}</label>-->
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div id="sales_statistics2" class="portlet-body-morris-fit morris-chart"
+                         style="height: 260px;text-align:center;">
+                        <script>
+                            $(function () {
+                                Highcharts.setOptions({
+                                    colors: ['#a8d6ff']
+                                });
+                            });
+                            $.getJSON('//' + window.location.host + '/dashboard/widgets/stats/tenantstatus', function (csv) {
+                                if (!csv.total) {
+                                    $('.tenant-chart-demo').show();
+                                    var csv = {
+                                        total: 5,
+                                        movingin: 2,
+                                        movingout: 3
+                                    }
+                                }
+                                $(function () {
+                                    Highcharts.getOptions().plotOptions.column.colors = (function () {
+                                        var colors = [],
+                                                base = Highcharts.getOptions().colors[0],
+                                                i;
+
+                                        for (i = 0; i < 10; i += 1) {
+                                            // Start out with a darkened base color (negative brighten), and end
+                                            // up with a much brighter color
+                                            colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+                                        }
+                                        return colors;
+                                    }());
+
+
+                                    $('#sales_statistics2').highcharts({
+                                        credits: {enabled: false},
+
+                                        chart: {
+                                            type: 'column'
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        xAxis: {
+                                            visible: false,
+//                                            categories: [
+//                                                'Total',
+//                                                'Moving out next month',
+//                                                'Moving in next month',
+//                                            ],
+//                                            crosshair: true
+                                        },
+                                        yAxis: {
+                                            visible: false,
+                                            min: 0,
+                                            title: {
+                                                text: ''
+                                            }
+                                        },
+                                        tooltip: {
+//                                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//                                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>'
+                                            pointFormat: '{point.y}'
+//                                            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+//                                            footerFormat: '</table>',
+//                                            shared: true,
+//                                            useHTML: true
+                                        },
+                                        plotOptions: {
+                                            column: {
+                                                pointPadding: 0.2,
+                                                borderWidth: 0
+                                            }
+                                        },
+                                        series: [{
+                                            color: '#5C9BD1',
+                                            name: "Total",
+                                            data: [
+                                                {name: "Total", y: csv.total},
+                                            ]
+                                        }, {
+                                            color: '#6BB4F3',
+                                            name: "Moving out next month",
+                                            data: [
+                                                {name: "Moving out next month", y: csv.movingout},
+                                            ]
+                                        }, {
+                                            color: '#BDE0FF',
+                                            name: "Moving in next month",
+                                            data: [
+                                                {name: "Moving in next month", y: csv.movingin},
+                                            ]
+                                        }
+                                        ]
+                                    });
+                                });
+//                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="portlet light" style="min-height:214px;">-->
+    <!--<div class="portlet-title">-->
+    <!--<div class="caption caption-md">-->
+    <!--<i class="icon-bar-chart theme-font-color hide"></i>-->
+    <!--<span class="caption-subject theme-font-color bold uppercase">{{'Revenue Summary' | translate}}</span>-->
+    <!--<span class="caption-helper hide">{{'weekly stats' | translate}}...</span>-->
+    <!--</div>-->
+    <!--<div class="actions">-->
+    <!--<div class="btn-group btn-group-devided" data-toggle="buttons">-->
+
+    <!--<label class="btn btn-transparent grey-salsa btn-circle btn-sm">-->
+    <!--<input type="radio" name="options" class="toggle" id="opt1">{{'Month' |-->
+    <!--translate}}</label>-->
+    <!--<label class="btn btn-transparent grey-salsa btn-circle btn-sm">-->
+    <!--<input type="radio" name="options" class="toggle" id="opt3">{{'Year' |-->
+    <!--translate}}</label>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="portlet-body">-->
+    <!--<div class="row list-separated">-->
+    <!--<div class="col-md-4 col-sm-4 col-xs-4">-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Total Rent' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg theme-font-color">13,760&euro;</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-4 col-sm-4 col-xs-4">-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Overdue' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg font-red-flamingo">4,760 &euro; </div>-->
+    <!--</div>-->
+    <!--<div class="col-md-4 col-sm-4 col-xs-4">-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Profit' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg font-blue-sharp">-->
+    <!--{{widgets.totalRent}}-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<ul class="list-separated list-inline-xs hide">-->
+    <!--<li>-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Total Sales' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg font-red-flamingo">-->
+    <!--{{widgets.totalRent}} <span class="font-lg font-grey-mint">&euro;</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--</li>-->
+    <!--<li class="border">-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Revenue' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg theme-font-color">-->
+    <!--{{widgets.totalRent}} <span class="font-lg font-grey-mint">&euro;</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="divider">-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Expenses' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg font-purple">-->
+    <!--11,760 <span class="font-lg font-grey-mint">&euro;</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--<li class="divider">-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div class="font-grey-mint font-sm">-->
+    <!--{{'Growth' | translate}}-->
+    <!--</div>-->
+    <!--<div class="uppercase font-hg font-blue-sharp">-->
+    <!--9,760 <span class="font-lg font-grey-mint">&euro;</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--</ul>-->
+
+    <!--<div id="sales_statistics" class="portlet-body-morris-fit morris-chart" style="height: 260px">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="portlet light ">
+            <div ng-if="widgetmonthlyrent.demo && hasDemo" class="ribbon-wrapper-blue tenant-chart-demo">
+                <div class="ribbon-blue">Demo</div>
+            </div>
+
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart theme-font-color hide"></i>
+                    <span class="caption-subject theme-font-color bold uppercase">{{'Month Overview' | translate}}</span>
+                    <span class="caption-helper hide">{{'weekly stats' | translate}}...</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                        <!--<label class="btn btn-transparent grey-salsa btn-circle btn-sm active">-->
+                        <!--<input type="radio" name="options" class="toggle" id="option1">{{'Received' |-->
+                        <!--translate}}</label>-->
+                        <!--<label class="btn btn-transparent grey-salsa btn-circle btn-sm">-->
+                        <!--<input type="radio" name="options" class="toggle" id="option2">{{'Incoming' |-->
+                        <!--translate}}</label>-->
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-left">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    {{'Remaining' | translate}}
+                                </div>
+                                <div class="number">
+                                    {{app.userServiceData.user.profile.currency.symbol}} {{widgetmonthlyrent.remaining}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-right">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar2"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    {{'Received' | translate}}
+                                </div>
+                                <div class="number">
+                                    {{app.userServiceData.user.profile.currency.symbol}} {{widgetmonthlyrent.received}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="widgetmonthlyrent.rows" class="table-scrollable table-scrollable-borderless" style="height: 187px;">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="uppercase">
+                            <th colspan="2">
+                                {{'Tenant' | translate}}
+                            </th>
+                            <th>
+                                {{'Amount' | translate}}
+                            </th>
+                            <!--<th>-->
+                            <!--{{'Property' | translate}}-->
+                            <!--</th>-->
+                            <th>
+                                {{'Status' | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="row in widgetmonthlyrent.rows">
+                            <td class="fit">
+                                <img ng-if="row.tenant.avatar" class="user-pic" ng-src="{{row.tenant.avatar}}">
+                            </td>
+                            <td class="overview-name" data-hover="tooltip" data-placement="top" title="{{row.tenant.name}}">
+                                {{row.tenant.name}}
+                            </td>
+                            <td>
+                                {{app.userServiceData.user.profile.currency.symbol}} {{row.payment.amount}}
+                            </td>
+                            <!--<td>-->
+                            <!--<a href="#/properties/view/{{row.property.id}}">-->
+                            <!--{{row.property.id}}-->
+                            <!--</a>-->
+                            <!--</td>-->
+                            <td class="overview-amount">
+                                <span class="bold theme-font-color">{{row.payment.status}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<div class="row" ng-show="normal">
+
+    <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#first-login-nl">-->
+    <!--Launch demo modal-->
+    <!--</button>-->
+
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light">
+            <div ng-if="widgetlast.demo && hasDemo  != false" class="ribbon-wrapper-blue tenant-chart-demo">
+                <div class="ribbon-blue">Demo</div>
+            </div>
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font-color hide"></i>
+                    <span class="caption-subject theme-font-color bold uppercase">{{'Latest' | translate}}</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <!--<li class="active">-->
+                    <!--<a href="#tab_1_1" data-toggle="tab">-->
+                    <!--{{'Activity' | translate}} </a>-->
+                    <!--</li>-->
+                    <li class="active">
+                        <a href="#tab_1_1" data-toggle="tab">
+                            {{'Payments' | translate}} </a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_2" data-toggle="tab">
+                            {{'Messages' | translate}} </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div class="scroller" style="height: 280px;" data-always-visible="1" data-rail-visible1="0"
+                             data-handle-color="#D7DCE2">
+
+                            <div ng-if="!widgetlast.payments" class="center-block">
+
+                                <div class="row text-center">
+                                    <!--<img class="tomato-data-img" style="width: 200px;"-->
+                                         <!--src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/background/tomato_data_250x250.png"/>-->
+
+                                    <img class="tomato-data-img" style="width: 200px;" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/plus-sign.png"/>
+
+                                    <br/>
+
+                                    <p class="tomato-nodata-alert">
+                                        {{'Please add a property and / or tenant first!' | translate}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <ul class="feeds" ng-repeat="row in widgetlast.payments">
+                                <li>
+                                    <a href="javascript:;">
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-usd"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">
+                                                        {{'Payment received from' | translate}} {{row.name}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date">
+                                                {{row.date}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_1_2">
+                        <div class="scroller" style="height: 250px;" data-always-visible="1" data-rail-visible1="0"
+                             data-handle-color="#D7DCE2">
+
+
+                            <div ng-if="!widgetlast.messages" class="center-block">
+
+                                <div class="row text-center">
+                                    <!--<img class="tomato-data-img" style="width: 200px;"-->
+                                         <!--src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/background/tomato_data_250x250.png"/>-->
+                                    <img class="tomato-data-img" style="width: 200px;" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/plus-sign.png"/>
+                                    <br/>
+
+                                    <p class="tomato-nodata-alert">
+                                        <a href="#/messages/compose">{{'Try sending a message first' | translate}}</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="general-item-list" ng-repeat="row in widgetlast.messages">
+                                <div class="item">
+                                    <div class="item-head">
+                                        <div class="item-details">
+                                            <img class="item-pic" ng-if="row.sender.avatar != null"
+                                                 ng-src="{{row.sender.avatar}}">
+                                            <a href="" class="item-name primary-link">{{row.sender.name}}</a>
+                                            <span ng-if="row.read" class="item-label">
+                                                <span class="badge badge-empty badge-success"></span>
+                                                <span>{{'Read' | translate}}</span>
+                                            </span>
+                                            <span ng-if="!row.read" class="item-label">
+                                                <span class="badge badge-empty badge-default"></span>
+                                                <span>{{'Open' | translate}}</span>
+                                            </span><br>
+                                            <span class="item-body">{{row.text}}</span>
+                                        </div>
+                                        <!--<span class="item-status"><span class="badge badge-empty badge-success"></span> Open</span>-->
+                                        <span class="item-status">{{row.date}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="first-login-en" tabindex="-1" data-backdrop="true"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true"></button>
+                <h4 class="modal-title uppercase">{{'Welcome to Rentling' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" id="first-login-wizard-en">
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div class="alert alert-danger display-none">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    You have some form errors. Please check below.
+                                </div>
+                                <div class="alert alert-success display-none">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    Your form validation is successful!
+                                </div>
+                                <div class="tab-pane active" id="tab1">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_1.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h2 class="text-center">Welcome to rentling! </h2>
+                                        <h4 class="block text-center">Managing your rental properties is about to become
+                                            easier. <br>Here’s a quick introduction.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="forward">
+                                            <a href="#tab2" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_2.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">Manage different aspects of your real estate using
+                                            your navigation menu on the left.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab1" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="forward">
+                                            <a href="#tab3" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab3">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_3.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">Act quickly across rentling using the dropdowns
+                                            at the top of the platform.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab2" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="forward">
+                                            <a href="#tab4" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab4">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_4.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">Your dashboard provides you with a vital overview
+                                            of your rental real estate.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab3" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="forward">
+                                            <a href="#tab5" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab5">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_5.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">If you get stuck, Lisa is always around to help
+                                            answer your quick question.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab4" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <a href="javascript:;" data-dismiss="modal" class="btn red button-next">
+                                                    Start with a demo <i class="m-icon-swapright m-icon-white"></i>
+                                                </a>
+                                                <a href="javascript:;" data-dismiss="modal"
+                                                   class="btn green button-submit">
+                                                    Start now <i class="m-icon-swapright m-icon-white"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="nav nav-pills intro-steps steps">
+                                <li class="active">
+                                    <a href="#tab1" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab3" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab4" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab5" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal" id="first-login-nl" tabindex="-1" data-backdrop="true"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true"></button>
+                <h4 class="modal-title">{{'Welcome to Rentling' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" id="first-login-wizard-nl">
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div class="alert alert-danger display-none">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    You have some form errors. Please check below.
+                                </div>
+                                <div class="alert alert-success display-none">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    Your form validation is successful!
+                                </div>
+                                <div class="tab-pane active" id="tab1-nl">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_1.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h2 class="text-center">Welkom bij Rentling!</h2>
+                                        <h4 class="block text-center">Het beheer van uw vastgoed wordt vanaf nu
+                                            makkelijker. <br>Hier volgt een korte introductie.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="forward">
+                                            <a href="#tab2-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab2-nl">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_2.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">Beheer verschillende onderdelen van uw vastgoed
+                                            met behulp van het menu aan de linkerkant.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab1-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="forward">
+                                            <a href="#tab3-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab3-nl">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_3.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">De actieknoppen bovenaan de pagina zijn de snelste
+                                            en simpelste manieren om uw vastgoed te beheren.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab2-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="forward">
+                                            <a href="#tab4-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab4-nl">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_4.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">Met uw dashboard krijgt u in één oogopslag het
+                                            complete beeld van al uw vastgoed.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab3-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="forward">
+                                            <a href="#tab5-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="tab5-nl">
+                                    <div class="col-md-12">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/help/intro_modal_5.jpg"
+                                             width="100%">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="block text-center">Lisa staat klaar om uw vraag te beantwoorden
+                                            indien u vastloopt.</h4>
+                                    </div>
+                                    <ul class="nav nav-pills intro-steps-nav steps">
+                                        <li class="backward">
+                                            <a href="#tab4-nl" data-toggle="tab" class="step">
+                                                <span class="number"><i class="fa fa-chevron-left"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <a href="javascript:;" data-dismiss="modal" class="btn red button-next">
+                                                    Start with a demo <i class="m-icon-swapright m-icon-white"></i>
+                                                </a>
+                                                <a href="javascript:;" data-dismiss="modal"
+                                                   class="btn green button-submit">
+                                                    Start now <i class="m-icon-swapright m-icon-white"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="nav nav-pills intro-steps steps">
+                                <li class="active">
+                                    <a href="#tab1-nl" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2-nl" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab3-nl" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab4-nl" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab5-nl" data-toggle="tab" class="step">
+                                        <span class="small-number"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

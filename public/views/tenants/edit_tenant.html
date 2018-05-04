@@ -1,0 +1,25 @@
+<div class="row" ng-init="initCreateTenant()">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase"> {{'Edit tenant' | translate}}</span>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="margin-bottom-40">
+                    <div class="row" ng-repeat="row in inviteRows track by $index"
+                         invite-tenant-form
+                         ng-model="inviteRows[$index]"
+                         index="$index"
+                         currency="{{app.userServiceData.user.profile.currency.slug}}"
+                         properties="properties"
+                         save="saveTenantRow($index)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="portlet light">
+    <ng-form name="tenantForm" novalidation>
+        <div class="row margin-top-m">
+            <div class="col-md-4">
+                <div class="form-group form-md-line-input">
+                    <input type="text" ng-model="model.tenant.name" ng-required="true" name="name"
+                           placeholder="{{'Name' | translate}}"
+                           class="form-control">
+                    <label>{{'Name' | translate}}</label>
+                <span class="has-error"
+                      ng-show="hasError(tenantForm.name,tenantForm.name.$error.required)">
+                            <span ng-show="tenantForm.name.$error.required"
+                                  style="opacity: 1"
+                                  class="help-block help-block-error">
+                                        {{'Name is required' | translate}}
+                            </span>
+                        </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group form-md-line-input">
+                    <input type="email" class="form-control" name="email" placeholder="{{'Email' | translate}}"
+                           ng-required="true"
+                           ng-model="model.tenant.email">
+                    <label>{{'Email' | translate}}</label>
+                        <span class="has-error"
+                              ng-show="(model.errors.tenant.email || hasError(tenantForm.email,tenantForm.email.$invalid))">
+                                <span ng-show="model.errors.tenant.email"
+                                      style="opacity: 1"
+                                      class="help-block help-block-error">
+                                        {{model.errors.tenant.email[0]}}
+                                </span>
+                            <span ng-show="tenantForm.email.$invalid"
+                                  style="opacity: 1"
+                                  class="help-block help-block-error">
+                                        {{'Email field is not valid' | translate}}
+                            </span>
+                        </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group form-md-line-input">
+                    <select class="form-control" name="funit" id="funit"
+                            ng-model="model.unit_id"
+                            ng-options="c.id as c.title for c in property.units">
+                        <option value="">{{'No unit' | translate}}</option>
+                    </select>
+                    <label>{{'Unit' | translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-m">
+            <div class="col-md-4">
+                <div class="form-group form-md-line-input">
+                    <input class="form-control date-picker" type="text" ng-model="model.start_date"
+                           name="start_date" valid-date
+                           ng-required="true">
+                    <label>{{'Start date' | translate }}</label>
+                    <span class="has-error"
+                          ng-show="(model.errors.start_date || hasError(tenantForm.start_date,tenantForm.start_date.$invalid))">
+                        <span ng-show="model.errors.start_date"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                {{model.errors.start_date[0]}}
+                        </span>
+                        <span ng-show="tenantForm.start_date.$error.required"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                        {{'Start date is required!' | translate}}
+                        </span>
+                        <span ng-show="tenantForm.start_date.$error.endBeforeStart"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                        {{'Start date should be before end date!' | translate}}
+                        </span>
+                </span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group form-md-line-input">
+                    <input type="text" class="form-control date-picker" ng-model="model.end_date" name="end_date">
+                    <label>{{'End date' | translate}}</label>
+                    <span class="has-error"
+                          ng-show="(model.errors.end_date || hasError(tenantForm.end_date,tenantForm.end_date.$invalid))">
+                        <span ng-show="model.errors.end_date"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                {{model.errors.end_date[0]}}
+                        </span>
+                        <span ng-show="tenantForm.end_date.$error.startBeforeEnd"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                        {{'End date should be after start date!' | translate}}
+                        </span>
+                </span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group form-md-line-input">
+                    <select class="form-control" name="fcollection_day"
+                            ng-model="model.collection_day"
+                            ng-options="n for n in rangeCollectionDay">
+                    </select>
+                    <label>{{'Collection day' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-40">
+            <div class="col-md-12 margin-top-l">
+                <a class="btn green button-save" ng-click="save()">
+                    {{'Save' | translate}} </a>
+                <a class="btn red button-cancel" ng-click="cancel()">
+                    {{'Cancel' | translate}} </a>
+            </div>
+        </div>
+    </ng-form>
+</div>

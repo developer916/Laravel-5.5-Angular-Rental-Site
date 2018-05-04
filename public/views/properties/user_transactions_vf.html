@@ -1,0 +1,69 @@
+<div class="portlet light">
+    <ng-form name="transactionForm" novalidation>
+        <div class="row margin-top-m" style="margin-bottom: 30px">
+
+            <div class="col-md-4" ng-if="(!model.id || model.property_transactions_user_id)">
+                <div class="form-group form-md-line-input">
+                    <input class="form-control" ng-model="model.description" type="text" ng-required="true"
+                           name="description"
+                           placeholder="{{'Add transaction description here...' | translate}}">
+                    <label>{{'Description' | translate}}</label>
+                <span class="has-error"
+                      ng-show="hasError(transactionForm.description,transactionForm.description.$invalid)">
+                     <span ng-show="transactionForm.description.$error.required"
+                           style="opacity: 1"
+                           class="help-block help-block-error">
+                                {{'Description is required' | translate}}
+                    </span>
+                </span>
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-if="(!model.id || model.property_transactions_user_id)">
+                <div class="form-group form-md-line-input">
+                    <select class="form-control" name="frecurrings" id="frecurrings_{{index}}"
+                            ng-model="model.transaction_recurring_id"
+                            ng-options="key|number as value for (key,value) in transactionRecurrings">
+                        <option value="">{{'No recurring' | translate}}</option>
+                    </select>
+                    <label>{{'Reccuring transaction' | translate}}</label>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 form-inline">
+                <div class="form-group form-md-line-input">
+                    <div class="input-group">
+                        <span class="input-group-addon"> <i class="fa">{{currencySymbol}}</i></span>
+                        <input type="text" class="form-control" name="amount" ng-currency currency-symbol=""
+                               ng-model="model.amount" ng-required="true"
+                               placeholder="{{'Amount' | translate}}">
+                        <span class="input-group-addon"><i class="fa fa-asterisk font-red-sunglo"></i></span>
+                        <label>{{'Amount' | translate}}</label>
+                    </div>
+                <span class="has-error"
+                      ng-show="(model.errors.amount || hasError(transactionForm.amount,transactionForm.amount.$invalid))">
+                        <span ng-show="model.errors.amount"
+                              style="opacity: 1"
+                              class="help-block help-block-error">
+                                {{model.errors.amount[0]}}
+                        </span>
+                     <span ng-show="transactionForm.amount.$error.required"
+                           style="opacity: 1"
+                           class="help-block help-block-error">
+                                {{'Amount is required' | translate}}
+                    </span>
+                </span>
+                </div>
+            </div>
+            </div>
+        <div class="row margin-top-m margin-bottom-m">
+            <div class="col-md-4" style="margin-top: 20px">
+                <a class="btn green button-save" ng-click="save()">
+                    {{'Save' | translate}} </a>
+                <a class="btn red button-cancel" ng-click="cancel()">
+                    {{'Cancel' | translate}} </a>
+            </div>
+        </div>
+    </ng-form>
+</div>

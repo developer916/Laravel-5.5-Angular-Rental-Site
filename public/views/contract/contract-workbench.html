@@ -1,0 +1,261 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-body">
+                <ul class="nav nav-tabs">
+
+                    <li ng-class="getTabClass(1)" ng-click="setActiveTab(1)"><a href="#contract-wb-explanation" data-toggle="tab" style="pointer-events: none">{{'Explanation and strategy' | translate }}</a></li>
+                    <li ng-class="getTabClass(2)" ng-click="setActiveTab(2)"><a href="#points-calculation" data-toggle="tab" style="pointer-events: none">{{'Points and base rent calculation' | translate }}</a></li>
+                    <li ng-class="getTabClass(3)" ng-click="setActiveTab(3)"><a href="#rent-components" data-toggle="tab" style="pointer-events: none">{{'Rent Components' | translate }}</a></li>
+
+        <!-- ACTIVATE WHEN FRAMING IF LAW PAGES WORKS.                    
+                    <li ng-class="getTabClass(4)" ng-click="setActiveTab(4)"><a href="#rental-law" data-toggle="tab" style="pointer-events: none">{{'Rental law' | translate }}</a></li>
+        -->                    
+
+        <!-- COMMENTED OUT, NOT IN APROL PROMO, UNCOMMENT LATER 
+                    <li ng-class="getTabClass(5)" ng-click="setActiveTab(5)"><a href="#contract-templates" data-toggle="tab" style="pointer-events: none">{{'Contract templates' | translate }} </a></li>
+                    <li ng-class="getTabClass(6)" ng-click="setActiveTab(6)"><a href="#early-cancellation-fees" data-toggle="tab" style="pointer-events: none">{{'Early cancellation fees' | translate }} </a></li>
+        COMMENTED OUT, NOT IN APROL PROMO, UNCOMMENT LATER -->
+
+                </ul>
+
+                <div class="tab-content">
+
+                    <div ng-class="getTabPaneClass(1)" id="contract-wb-explanation" ng-if="selectedTab == 1">
+                        <div class="row" style="margin-top:30px;">
+                            <div class="col-md-12" style="margin-bottom:30px;">
+                                {{'Explanation and strategy' | translate}}
+                            </div>
+
+                            <div class="col-md-12">
+                                <table class="table table-striped table-bordered table-hover" id="">
+                                    <tbody>
+                                        <tr><td width="100%">{{'CB_EXPL_1'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_2'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_3'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_4'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_5'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_6'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_7'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_8'| translate}}</td></tr>
+                                        <tr><td width="100%">{{'CB_EXPL_9'| translate}}</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div ng-class="getTabPaneClass(2)" id="points-calculation" ng-if="selectedTab == 2">
+                        <div class="row" style="margin-top:30px;" ng-show="addRentComponents.loading">    <!-- TEMPORARY USED addRentComponents. LATER ADD CORRECT CODE -->                                        
+                                    {{'Watch the video, then calculate points and base rent for each property/unit.' | translate}}
+                                    <!--form ng-submit="pointsCalcCtrl.saveData()" novalidate role="form" class="form-horizontal" name="pointsCalcForm"  // PUT CORRECT CODE HERE --> 
+                                    <form id="addRentComponentForm" name="addRentComponentForm" ng-submit="onSaveRentComponent(addRentComponentForm.$valid)" novalidate>
+                                        <div class="row">
+                                            <div class="col-md-5 margin-top-m">
+                                                <div class="form-group form-md-line-input">
+                                                    <label class="col-md-3 text-left control-label" for="properties">{{'Properties' | translate}}</label>
+                                                    <div class="col-md-9">
+                                                        <select class="form-control" name="property" id="property"  
+                                                            ng-model='addRentComponents.property' ng-options="c.id as c.address for c in addRentComponents.properties" ng-change="changeProperty()">
+                                                            <option value="">{{'Select Property' | translate }}</option>
+                                                         </select>                                                 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 text-left control-label" for="unit">{{'Unit' | translate}}</label>
+                                                    <div class="col-md-9">
+                                                        <select class="form-control" name="unit" id="unit" 
+                                                            ng-model="addRentComponents.unit" ng-options="c.id as c.unit for c in addRentComponents.units">
+                                                            <option value="">Select Unit</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-md-line-input">
+                                                    <label class="col-md-3 text-left control-label" for="points">{{'Points calculated' | translate}}</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="points" name="email"
+                                                               ng-model="associationCtrl.record.email"                                          // CHANGE HERE TO CORRECT CONTROLLER
+                                                               placeholder="{{'' | translate}}">
+                                                            <div class="form-control-focus">                                                            
+                                                            </div>
+                                                            <span class="has-error"
+                                                                ng-show="(associationForm.$submitted && !associationCtrl.record.email)">        // CHANGE HERE TO CORRECT CONTROLLER
+                                                                <span style="opacity: 1"
+                                                                  class="help-block help-block-error"> {{'Points are required' | translate}}
+                                                                </span>
+                                                            </span>
+                                                    </div>
+                                                    <label class="col-md-3 text-left control-label" for="points">{{'Base rent calculated' | translate}}</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="points" name="baserent"
+                                                               ng-model="associationCtrl.record.email"                                          // CHANGE HERE TO CORRECT CONTROLLER
+                                                               placeholder="{{'' | translate}}">
+                                                            <div class="form-control-focus">                                                            
+                                                            </div>
+                                                            <span class="has-error"
+                                                                ng-show="(associationForm.$submitted && !associationCtrl.record.email)">        // CHANGE HERE TO CORRECT CONTROLLER
+                                                                <span style="opacity: 1"
+                                                                  class="help-block help-block-error"> {{'You must enter a base rent' | translate}}
+                                                                </span>
+                                                            </span>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group form-md-line-input"></div>
+                                                <div class="form-group form-md-line-input"></div>
+                                                <div class="form-group form-md-line-input"></div>
+                                                <div class="margin-top-20">                                            
+                                                    <button type="submit" class="btn green-haze">{{'Save Changes' | translate}}</button>
+                                                    <a class="btn red button-cancel" ng-href="#/dashboard"> {{'Cancel' | translate}} </a>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 margin-top-m">
+                                                <iframe width=600 height=400 frameborder="0" scrolling="no" src="https://screencast-o-matic.com/embed?sc=cFfrIebij3&v=5&ff=1" allowfullscreen="true"></iframe>
+                                            </div>
+                                        </div>
+                                    </form>
+
+        <!-- IF PROPERTY SELECTED, THEN SHOW BELOW FRAME -->
+                                    <iframe src="https://www.huurcommissie.nl/webformulieren/onderwerpen/huurprijs-en-punten/huurprijscheck-en-puntentelling/huurprijscheck-zelfstandige-woonruimte/?tx_hczelfstandig_pricecheck%5Baction%5D=spaces&tx_hczelfstandig_pricecheck%5Bcontroller%5D=Form" width="100%" height="900"></iframe>
+        <!-- IF UNIT SELECTED, THEN SHOW BELOW FRAME 
+                                    <iframe src="https://www.huurcommissie.nl/webformulieren/onderwerpen/huurprijs-en-punten/huurprijscheck-en-puntentelling/huurprijscheck-onzelfstandige-woonruimte/stap/vertrekken/id/?tx_hconzelfstandig_pricecheck%5BhashKey%5D=eYmAE5adb1fff5075e&cHash=f940f03ecbd447cd2d26a70c45e01ad1" width="100%" height="900"></iframe>
+        IF UNIT SELECTED, THEN SHOW ABOVE FRAME  -->
+                        </div>
+                    </div>
+
+
+                    <div ng-class="getTabPaneClass(3)" id="rent-components" ng-if="selectedTab == 3">
+                        <div class="row" style="margin-top:30px;" ng-show="addRentComponents.loading">
+                            <div class="col-md-12" style="margin-bottom:30px;">
+                                <a href="javascript:void(0)" class="btn default green" style="float:right;" ng-click="onShowModalAddRentComponent()">
+                                    <i class="fa fa-plus"></i>
+                                    <span class="hidden-480 ng-binding">{{'Add new rent component' | translate }}</span>
+                                </a>
+                            </div>
+
+                            <div class="col-md-12">
+                                <table class="table table-striped table-bordered table-hover" id="rentComponents-dt" datatable="ng"  dt-options="dtOptions">
+                                    <thead>
+                                    <tr role="row" class="heading">
+                                        <th width="10%">
+                                            {{'No' | translate}}
+                                        </th>
+                                        <th width="20%">
+                                            {{'Rent Component' | translate}}
+                                        </th>
+                                        <th width="30%">
+                                            {{'Property' | translate}}
+                                        </th>
+                                        <th width="5%">
+                                            {{'Unit' | translate}}
+                                        </th>
+                                        <th width="10%">
+                                            {{'Effective Date' | translate}}
+                                        </th>
+                                        <th width="5%">
+                                            {{'Amount' | translate}}
+                                        </th>
+                                        <th width="10%">
+                                            {{'Action' | translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                         <tr ng-repeat="rentComponent in rentComponents">
+                                             <td width="10%">{{rentComponent['id']}}</td>
+                                             <td width="20%">{{rentComponent['name']}}</td>
+                                             <td width="30%">{{rentComponent['propertyTitle']}}</td>
+                                             <td width="5%">{{rentComponent['unit']}}</td>
+                                             <td width="10%">{{rentComponent['effective_date']}}</td>
+                                             <td width="5%">{{rentComponent['value']}}</td>
+                                             <td width="10%"><div ng-bind-html="rentComponent['actions']" style="display: inline-block" ng-click="deleteRentComponent(rentComponent['id'])"></div></td>
+                                         </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+        <!-- FRAME-DENY ON DUTCH LAW PAGES. ACTIVATE WHEN SOLUTION FOUND.
+                    <div ng-class="getTabPaneClass(4)" id="rental-law" ng-if="selectedTab == 4">
+                        <iframe src="http://wetten.overheid.nl/jci1.3:c:BWBR0005290&boek=7&titeldeel=4" width="100%" height="900"></iframe>
+                        OR USE THIS ONE, on 22Apr, both did not work. Regillio sent an email to the government website admin.
+                        <iframe src="http://wetten.overheid.nl/BWBR0005290/2018-02-01#Boek7_Titeldeel4" width="100%" height="900"></iframe>                        
+        -->
+
+        <!-- COMMENTED OUT, NOT IN APROL PROMO, UNCOMMENT LATER                     
+                    <div ng-class="getTabPaneClass(5)" id="contract-templates" ng-if="selectedTab == 1">
+                    </div>
+
+                    <div ng-class="getTabPaneClass(6)" id="early-cancellation-fees" ng-if="selectedTab == 2">
+                    </div>
+        COMMENTED OUT, NOT IN APROL PROMO, UNCOMMENT LATER   -->    
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addRentComponentModal" tabindex="-1" data-backdrop="true" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title uppercase">{{'Add new rent component' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="addRentComponentForm" name="addRentComponentForm" ng-submit="onSaveRentComponent(addRentComponentForm.$valid)" novalidate>
+                            <!--<h3 style="margin-bottom: 20px;">{{'Add new rent component' | translate }}</h3>-->
+                            <!--<div class="form-group" ng-hide="landlord">-->
+                                <!--<label for="selectRentComponent">{{'User' | translate }}</label>-->
+                                <!--<select class="form-control" name="user" id="user"  ng-model='addRentComponents.user'-->
+                                        <!--ng-options="c.id as c.name for c in addRentComponents.users">-->
+                                <!--</select>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label for="selectRentComponent">{{'Rent Component' | translate }}</label>
+                                <select class="form-control" name="selectRentComponent" id="selectRentComponent"  ng-model='addRentComponents.selectRentComponent'
+                                        ng-options="c.id as c.name for c in addRentComponents.selectRentComponents">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="property">{{'Property' | translate }}</label>
+                                <select class="form-control" name="property" id="property"  ng-model='addRentComponents.property'
+                                        ng-options="c.id as c.address for c in addRentComponents.properties" ng-change="changeProperty()">
+                                    <option value="">{{'Select Property' | translate }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="unit">{{'Unit' | translate}}</label>
+                                <select class="form-control" name="unit" id="unit" ng-model="addRentComponents.unit"
+                                        ng-options="c.id as c.unit for c in addRentComponents.units">
+                                    <option value="">{{'Select Unit' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : (addRentComponentForm.effectiveDate.$invalid && !addRentComponentForm.effectiveDate.$pristine) || (addRentComponentForm.$submitted && addRentComponentForm.effectiveDate.$error.required)}">
+                                <label>{{'Effective Date' | translate }}</label>
+                                <input type="text" class="form-control date-picker" ng-model="addRentComponents.effectiveDate" id="effectiveDate" name="effectiveDate" required>
+                                <p ng-show="(addRentComponentForm.effectiveDate.$invalid && !addRentComponentForm.effectiveDate.$pristine) || (addRentComponentForm.$submitted && addRentComponentForm.effectiveDate.$error.required)" class="help-block">{{'Effective date is required.' | translate }}</p>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : (addRentComponentForm.amount.$invalid && !addRentComponentForm.amount.$pristine) || (addRentComponentForm.$submitted && addRentComponentForm.amount.$error.required)}">
+                                <label>{{'Amount' | translate}}</label>
+                                <input type="number" class="form-control" ng-model="addRentComponents.amount" step="any" name="amount" required>
+                                <p ng-show="(addRentComponentForm.amount.$invalid && !addRentComponentForm.amount.$pristine) || (addRentComponentForm.$submitted && addRentComponentForm.amount.$error.required)" class="help-block">{{'Amount is required.' | translate }}</p>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" >{{'Save' | translate}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

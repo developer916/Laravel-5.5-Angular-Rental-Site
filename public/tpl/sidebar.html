@@ -1,0 +1,60 @@
+<div class="page-sidebar md-shadow-z-2-i  navbar-collapse collapse">
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200"
+        ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+
+
+        <!--<img class="rt-preloader" ng-show="settings.menuLoading" src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/rolling.svg" />-->
+        <!--<img class="rt-preloader" ng-show="settings.menuLoading" src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/tomato.gif" />-->
+
+        <li ng-repeat="menuItem in settings.menu">
+            <a href="{{menuItem.url}}">
+                <i class="{{menuItem.icon}}"></i>
+                <span class="title" translate="{{menuItem.label}}"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div ng-if="$root.lisa" class="page-sidebar md-shadow-z-2-i  navbar-collapse collapse lisa-navbar">
+    <ul class="page-sidebar-menu page-sidebar-menu-light" data-keep-expanded="true" data-auto-scroll="false"
+        data-slide-speed="200">
+        <li class="">
+            <a href="#" onclick="$('#lisa-menu').toggle();">
+                <i class="icon-question"></i>
+                <span class="title">{{'Need help?' | translate}}</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu" id="lisa-menu" style="padding-left:10px;padding-right:10px;">
+                <li>
+                    <a class="lisa-container" href="#" onclick="Tawk_API.showWidget();Tawk_API.maximize();">
+                        <div class="lisa-title">
+                            <img src="https://s3-eu-west-1.amazonaws.com/app.rentomato.com/assets/avatars/lisa_146x146.png" width="40px">
+                            <span class="title">{{'Hi, I am Lisa' | translate}}</span>
+                        </div>
+                        <span class="title">{{'If you cannot find an answer, send me a message bellow' | translate}}</span>
+                    </a>
+                </li>
+                <li ng-repeat="item in $root.lisa">
+                    <a href="#" onclick="$('ul.lisa-sub-menu').hide();$(this).next('ul.lisa-sub-menu').toggle();">
+                        <i class="icon-plus"></i>
+                        <span class="title">{{item.title}}</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu lisa-sub-menu" id="{{item.title}}">
+                        <li>
+                            <a>
+                                {{item.content}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+        <a href="#" onclick="Tawk_API.showWidget();Tawk_API.maximize();">
+        <i class="icon-bubbles"></i>
+        <span class="title">{{'Ask us directly' | translate}}</span>
+        <span class="arrow "></span>
+        </a>
+        </li>
+    </ul>
+</div>

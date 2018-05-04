@@ -1,0 +1,516 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="profile-sidebar col-md-3 col-sm-4">
+            <div class="portlet light profile-sidebar-portlet">
+
+                <div class="profile-userpic">
+                    <img ng-if="formData.profile.avatar" ng-src="{{formData.profile.avatar}}" class="img-responsive" alt="">
+                    <img ng-if="!formData.profile.avatar" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/avatars/avatar9.png" class="img-responsive" alt="">
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{formData.user.name}}
+                    </div>
+                </div>
+                <div class="profile-userbuttons">
+                    <!--<button type="button" class="btn btn-circle green-haze btn-sm">Add</button>-->
+                    <button type="button" class="btn btn-circle btn-danger btn-sm">{{'This is You' | translate}}
+                    </button>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <!--<li>-->
+                        <!--<a href="#">-->
+                        <!--<i class="icon-home"></i>-->
+                        <!--{{'Overview' | translate}} </a>-->
+                        <!--</li>-->
+                        <li class="active">
+                            <a href="#/settings">
+                                <i class="icon-settings"></i>
+                                {{'Profile Settings' | translate}} </a>
+                        </li>
+                        <li>
+                            <a href="#/profile">
+                                <i class="icon-settings"></i>
+                                {{'Profile' | translate}} </a>
+                        </li>
+                        <!--<li>-->
+                        <!--<a href="settings.html" target="_blank">-->
+                        <!--<i class="icon-check"></i>-->
+                        <!--Preferences </a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<a href="settings.html#tab_1_2">-->
+                        <!--<i class="icon-info"></i>-->
+                        <!--Administration </a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<a href="settings.html#tab_1_3">-->
+                        <!--<i class="icon-info"></i>-->
+                        <!--Users </a>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+            <!-- END PORTLET MAIN -->
+        </div>
+        <!-- END BEGIN PROFILE SIDEBAR -->
+        <!-- BEGIN PROFILE CONTENT -->
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">{{'Settings' | translate}}</span>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" onclick="return false;" data-toggle="tab">{{'Personal Info' | translate}}</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_5" onclick="return false;" data-toggle="tab">{{'Finances' | translate}}</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_2" onclick="return false;" data-toggle="tab">{{'Change Avatar' | translate}}</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_3" onclick="return false;" data-toggle="tab">{{'Change Password' | translate}}</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_4" onclick="return false;" data-toggle="tab">{{'Privacy & Notifications' | translate}}</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_6" onclick="return false;" data-toggle="tab">{{'Delete Account' | translate}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active" id="tab_1_1">
+                                    <form ng-submit="savePersonalInfo()" novalidate role="form" class="form-horizontal">
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="name">{{'Name' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="name"
+                                                       ng-model="formData.user.name"
+                                                       placeholder="{{'Enter your name' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="email">{{'Email' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="email"
+                                                       ng-model="formData.user.email"
+                                                       placeholder="{{'Enter your email' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="phone">{{'Phone' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="phone"
+                                                       ng-model="formData.profile.phone"
+                                                       placeholder="{{'Enter your number' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="address">{{'Address' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="address"
+                                                       ng-model="formData.profile.address"
+                                                       placeholder="{{'Enter your address' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="website">{{'Website' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="website"
+                                                       ng-model="formData.profile.website"
+                                                       placeholder="{{'http://mytomato.com' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input has-success">
+                                            <label class="col-md-2 control-label" for="bio">{{'Bio' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <textarea class="form-control" rows="3" id="bio"
+                                                          ng-model="formData.profile.bio"
+                                                          placeholder="{{'Enter more text' | translate}}"></textarea>
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="margiv-top-10">
+                                            <button type="submit" class="btn green-haze">{{'Save Changes' | translate}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_1_2">
+                                    <form ng-submit="saveAvatar()" role="form">
+                                        <div class="form-group">
+                                            <h3>{{'Upload New Avatar' | translate}}</h3>
+
+                                            <div class="margin-bottom-40">
+                                                <div dropzone form-data="{id:formData.user.id}"
+                                                     files="formData.files"
+                                                     remove-file-dropzone="removeFileFromUpload(file)"
+                                                     config="{url:'settings/upload/avatar', maxFiles:1}" id="dropzone" class="dropzone"
+                                                     style="border: 3px dashed #ccc;margin-bottom: 30px;padding: 30px;">
+                                                    <div class="dz-default dz-message">
+                                                        <h3 ng-show="(!formData.files || !formData.files.length)" class="block font-green"
+                                                            style="text-align: center;">
+                                                            {{'Upload Avatar' | translate}}
+                                                            <br>
+                                                            <small style="color:#999">{{'Drag and drop or Click to select' | translate}}
+                                                            </small>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>{{'From URL' | translate}}</h3>
+
+                                            <div class="form-group form-md-line-input">
+                                                <label class="col-md-2 control-label" for="url_avatar">{{'Url' | translate}}</label>
+
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id="url_avatar"
+                                                           ng-model="formData.profile.remote_avatar_url"
+                                                           placeholder="{{'http://mytomato.com' | translate}}">
+
+                                                    <div class="form-control-focus">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br/><br/><br/>
+
+                                            <div class="form-group">
+
+                                                <a href="javascript:;" ng-click="setAvatar(avatar)"
+                                                   ng-repeat="avatar in formData.avatars">
+                                                    <img class="settings-avatar" ng-src="{{avatar}}"/>
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="margin-top-10">
+                                            <button type="submit"  class="btn green-haze">{{'Save Changes' | translate}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_1_3">
+                                    <form novalidate ng-submit="updatePassword()">
+
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-4 control-label" for="password">{{'Current password' | translate}}</label>
+
+                                            <div class="col-md-8">
+                                                <input type="password" class="form-control"
+                                                       id="password" ng-model="formData.password.current_password"
+                                                       placeholder="{{'Please enter your current password' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-4 control-label" for="new_password">{{'New Password' | translate}}</label>
+
+                                            <div class="col-md-8">
+                                                <input type="password" class="form-control" value=""
+                                                       id="new_password"
+                                                       ng-model="formData.password.new_password"
+                                                       placeholder="{{'enter new password' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input" style="margin-bottom:10px">
+                                            <label class="col-md-4 control-label" for="confirm_new_password">{{'Confirm New Password' | translate}}</label>
+
+                                            <div class="col-md-8">
+                                                <input type="password" class="form-control" value=""
+                                                       id="confirm_new_password"
+                                                       ng-model="formData.password.confirm_new_password"
+                                                       placeholder="{{'confirm new password' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="margin-top-10">
+                                            <button type="submit" class="btn green-haze">{{'Save Changes' |  translate}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_1_4">
+                                    <form novalidate ng-submit="savePrivacy()">
+                                        <h4>{{'Visibility' | translate}}</h4>
+                                        {{'Keep your profile visible' | translate}}<br>
+                                        <small>{{'Default when you share a place' | translate}}</small>
+                                        <div class="md-radio-inline">
+                                            <div class="md-radio has-success">
+                                                <input ng-model="formData.profile.privacy" type="radio" value="private"
+                                                       id="private" name="private" class="md-radiobtn">
+                                                <label for="private">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    {{'Private' | translate}}</label>
+                                            </div>
+                                            <div class="md-radio">
+                                                <input type="radio" ng-model="formData.profile.privacy" value="public"
+                                                       id="public" name="public" class="md-radiobtn"
+                                                       checked>
+                                                <label for="public">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    {{'Public' | translate}}</label>
+                                            </div>
+                                        </div>
+                                        <h4>{{'Notifications' | translate}}</h4>
+
+                                        <div class="md-checkbox  has-success">
+                                            <input type="checkbox" ng-model="formData.profile.notifications.monthly"
+                                                   id="monthly" class="md-check">
+                                            <label for="monthly">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                {{'Receive monthly reports' | translate}} </label>
+                                        </div>
+                                        <div class="md-checkbox  has-success">
+                                            <input type="checkbox" ng-model="formData.profile.notifications.payment"
+                                                   id="payment" class="md-check">
+                                            <label for="payment">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                {{'Receive an email after every payment' | translate}} </label>
+                                        </div>
+                                        <div class="md-checkbox  has-success">
+                                            <input type="checkbox" ng-model="formData.profile.notifications.application"
+                                                   id="application" class="md-check">
+                                            <label for="application">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                {{'Receive an email after every application' | translate}} </label>
+                                        </div>
+
+                                        <div class="margin-top-10">
+                                            <button type="submit" class="btn green-haze">{{'Save Changes' | translate}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_1_5">
+                                    <form novalidate ng-submit="updateCurrency()">
+                                        <div class="row  margin-bottom-40">
+                                            <div class="form-group form-md-line-input">
+                                                <label class="col-md-4 control-label" for="fcurrencies">{{'Currency' | translate}}</label>
+
+                                                <div class="col-md-3">
+                                                    <select class="form-control" name="fcurrencies" id="fcurrencies"
+                                                            ng-model="formData.profile.currency_id"
+                                                            ng-options="key|number as value for (key,value) in app.currencies">
+                                                    </select>
+                                                    <div class="form-control-focus">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row  margin-bottom-40">
+                                            <div class="form-group form-md-line-input">
+                                                <label class="col-md-4 control-label" for="fcurrencies">{{'VAT' | translate}}</label>
+
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="formData.profile.vat"
+                                                           placeholder="{{'VAT' | translate}}">
+                                                    <div class="form-control-focus">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row  margin-bottom-40">
+                                            <div class="form-group form-md-line-input">
+                                                <label class="col-md-4 control-label" for="fcurrencies">{{'IBAN' | translate}}</label>
+
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="formData.profile.iban"
+                                                           placeholder="{{'IBAN' | translate}}">
+                                                    <div class="form-control-focus">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row  margin-bottom-40">
+                                            <div class="form-group form-md-line-input">
+                                                <label class="col-md-4 control-label" for="fcurrencies">{{'SWIFT' | translate}}</label>
+
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="formData.profile.swift"
+                                                           placeholder="{{'SWIFT' | translate}}">
+                                                    <div class="form-control-focus">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="margin-top-10">
+                                            <button type="submit" class="btn green-haze">{{'Save Changes' | translate}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="tab_1_6">
+                                    <form ng-submit="deleteAccount(deleteAccountForm.$valid)" novalidate role="form" class="form-horizontal" id="deleteAccountForm" name="deleteAccountForm">
+                                        <div class="form-group form-md-line-input" ng-class="{ 'has-error' : (deleteAccountForm.deletePassword.$invalid && !deleteAccountForm.deletePassword.$pristine) || (deleteAccountForm.$submitted && deleteAccountForm.deletePassword.$error.required)}">
+                                            <label class="col-md-2 control-label" for="name">{{'Password' | translate}}</label>
+                                            <div class="col-md-10">
+                                                <input type="password" class="form-control" id="deletePassword" name="deletePassword"
+                                                       ng-model="formData.account.password"
+                                                       placeholder="{{'Please enter your current password' | translate}}" required>
+                                                <div class="form-control-focus">
+                                                </div>
+                                                <p ng-show="(deleteAccountForm.deletePassword.$invalid && !deleteAccountForm.deletePassword.$pristine) || (deleteAccountForm.$submitted && deleteAccountForm.deletePassword.$error.required)" class="help-block">{{'Password is required.' | translate }}</p>
+                                                <p ng-show="deletePassword" class="help-block" style="color: #F3565D;" id="deletePasswordError">{{'Password is incorrect.' | translate }}</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="margin-top-10">
+                                            <button type="submit" class="btn red-haze">{{'Delete Account' | translate}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END PRIVACY SETTINGS TAB -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END PROFILE CONTENT -->
+    </div>
+</div>
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">{{'Account Settings' | translate }}</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"
+                       data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form"  name="settingsForm" class="form-horizontal" ng-submit="submitForm(settingsForm.$valid)" novalidate>
+                    <div class="form-body">
+                        <div class="form-group form-md-line-input" ng-class="{ 'has-error' : settingsForm.name.$invalid && !settingsForm.name.$pristine }">
+                            <label class="col-md-2 control-label" for="name">Name</label>
+
+                            <div class="col-md-10">
+                                <input type="text"
+                                       class="form-control"
+                                       id="name"
+                                       name="name"
+                                       ng-model="formData.name" required
+                                       ng-minlength="3"
+                                       placeholder="Enter your name">
+                                <div class="form-control-focus">
+                                </div>
+                                <span class="help-block" ng-show="settingsForm.name.$error.minlength">{{'Field is required' | translate}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input" >
+                            <label class="col-md-2 control-label" for="address">Address</label>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="address" name="address" ng-model="formData.address" required
+                                       placeholder="Address">
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="phone">Phone</label>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone" name="phone" required ng-model="formData.phone">
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="iban">IBAN</label>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="iban" placeholder="Bank IBAN" name="iban"  ng-model="formData.iban">
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" ng-disabled="settingsForm.$invalid" class="btn blue">{{'Save Settings' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+-->

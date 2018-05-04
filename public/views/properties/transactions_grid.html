@@ -1,0 +1,34 @@
+<style>
+    @-webkit-keyframes yellow-fade {
+        0% {background: yellow;}
+        100% {background: none;}
+    }
+
+    @keyframes yellow-fade {
+        0% {background: yellow;}
+        100% {background: none;}
+    }
+
+    .highlight-changes {
+        -webkit-animation: yellow-fade 0.5s ease-in 1;
+        animation: yellow-fade 0.5s ease-in 1;
+    }
+</style>
+<div class="table-container">
+    <table style="width:100% !important;" class="table table-bordered table-striped flip-content"
+           id="transactions-dt">
+        <thead>
+        <tr role="row" class="heading">
+            <th width="0%"></th>
+            <th width="2%">{{'No.#' | translate}}</th>
+            <th width="25%">{{'Transaction' | translate}}</th>
+            <th width="12%">{{'Unit' | translate}}</th>
+            <th width="12%">{{'Recurring' | translate}}</th>
+            <th width="12%">{{'Amount Total' | translate}}</th>
+            <th width="25%">{{'Actions' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

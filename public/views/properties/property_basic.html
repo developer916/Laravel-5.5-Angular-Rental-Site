@@ -1,0 +1,225 @@
+<div class="portlet light">
+    <form class="tab-pane" id="tab_property"
+          novalidate
+          name="propertyBasicsCtrl.form">
+        <h3 class="block font-green" style="text-align: center">
+            {{'Provide your property details' | translate}}
+            <br>
+            <!--<small style="color:#999">{{'The more, the easier for you later' | translate}}-->
+            <!--</small>-->
+        </h3>
+
+        <div class="row margin-bottom-40 plan-container">
+            <div class="col-md-6 plan-box">
+                <!--<div class="form-group form-md-line-input col-md-6 text-center"-->
+                <!--style="margin:0 auto;float:none">-->
+                <!--<select class="form-control" name="fplan" id="fplan"-->
+                <!--ng-model="propertyBasicsCtrl.property.plan"-->
+                <!--ng-options="c | uppercase | translate for c in ['free','pro']"-->
+                <!--data-content="{{'Not sure what to choose? Check our pricing page' | translate }}"-->
+                <!--rel="popover" data-placement="bottom" data-trigger="hover"-->
+                <!--onmouseover="$('#fplan').popover();">-->
+                <!--</select>-->
+                <!--<label for="fplan" style="text-align: center">{{'Choose which plan suits best your-->
+                <!--property' |-->
+                <!--translate }}</label>-->
+                <!--<a href="https://rentomato.com/pricing" target="_blank">{{'Not sure what to choose?' |-->
+                <!--translate}}</a>-->
+                <!--</div>-->
+                <div class="col-md-8 plan-text">
+                    <p>{{'Enable rent collection for this property?' | translate}}</p>
+
+                    <div class="md-checkbox-inline plan-option"
+                         tooltip="{{'Have no fear, your rent will be here with automated collection. Check our pricing or contact us directly.' | translate}}">
+                        <div class="md-checkbox">
+                            <input type="checkbox" ng-model="propertyBasicsCtrl.property.is_pro" ng-true-value="1"
+                                   ng-false-value="0" name="fplan" id="fplan" class="md-check">
+                            <label for="fplan">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                                {{(propertyBasicsCtrl.property.is_pro) ? ('Yes' | translate) : ('No. Click for Yes' |
+                                translate)}}</label>
+
+                            <div class="platform-tip">
+                                <i class="icon-question"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 icon plan-icon">
+                    <i class="icon-credit-card"></i>
+                </div>
+            </div>
+            <div class="col-md-6 plan-box">
+                <div class="col-md-8 plan-text">
+                    <p>{{'Enable auto listing to get new tenants?' | translate}}</p>
+
+                    <div class="md-checkbox-inline plan-option"
+                         tooltip="{{'Have multiple accounts where you share listings? Automate your process.' | translate}}">
+                        <div class="md-checkbox">
+                            <input type="checkbox" name="share" id="share" ng-true-value="1" ng-false-value="0"
+                                   ng-model="propertyBasicsCtrl.property.is_autoshare" class="md-check">
+                            <label for="share">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                                {{(propertyBasicsCtrl.property.is_autoshare) ? ('Yes' | translate) : ('No. Click for Yes' | translate)}}</label>
+
+                            <div class=" platform-tip">
+                                <i class="icon-question"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 icon plan-icon">
+                    <i class="icon-user"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom-40">
+            <div class="col-md-6">
+                <div class="form-group form-md-line-input">
+                    <input type="text" class="form-control" id="ftitle" name="ftitle"
+                           ng-model="propertyBasicsCtrl.property.title" ng-required="true">
+                    <label for="ftitle">{{'Title' | translate}}</label>
+                                        <span ng-show="(propertyBasicsCtrl.form.ftitle.$dirty && propertyBasicsCtrl.form.ftitle.$invalid)"
+                                              class="has-error">
+                                                    <span ng-show="propertyBasicsCtrl.form.ftitle.$error.required"
+                                                          style="opacity: 1"
+                                                          class="help-block help-block-error">
+                                                            {{'Property title is required' | translate}}
+                                                    </span>
+                                        </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-md-line-input">
+                    <input type="text" class="form-control" id="finternal_id" name="finternal_id"
+                           ng-model="propertyBasicsCtrl.property.internal_id">
+                    <label for="finternal_id">{{'Internal Id' | translate}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-if="!propertyBasicsCtrl.property.parent_id">
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input">
+                        <div class="input-icon right">
+                            <input type="text" class="form-control" id="faddress" name="faddress" ng-autocomplete
+                                   ng-model="propertyBasicsCtrl.property.address" ng-required="true"
+                                   on-select="propertyBasicsCtrl.setMap()" placeholder="">
+                            <label for="faddress">{{'Address' | translate}}</label>
+                            <span class="help-block" ng-show="(propertyBasicsCtrl.form.faddress.$valid)">{{'Street, Number, City, Country and see the magic' | translate}}</span>
+                            <i class="icon-pin"></i>
+                        </div>
+
+                        <span class="has-error"
+                              ng-show="(propertyBasicsCtrl.form.faddress.$dirty && propertyBasicsCtrl.form.faddress.$invalid)">
+                            <span ng-show="propertyBasicsCtrl.form.faddress.$error.required"
+                                  style="opacity: 1"
+                                  class="help-block help-block-error">
+                                    {{'Address is required' | translate}}
+                            </span>
+                        </span>
+
+                    </div>
+
+                    <div class="form-group form-md-line-input">
+                        <div class="input-icon right">
+                            <input type="text" class="form-control" id="fcity"
+                                   ng-model="propertyBasicsCtrl.property.city" ng-required="true">
+                            <label for="fcity">{{'City' | translate}}</label>
+                            <i class="icon-globe"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-md-line-input">
+                        <div class="input-icon right">
+                            <select class="form-control" id="fcountry"
+                                    ng-model="propertyBasicsCtrl.property.country_id" ng-required="true"
+                                    ng-options="c.id as c.title for c in app.countries">
+                            </select>
+                            <label for="fcountry">{{'Country' | translate}} </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 margin-bottom-40" ng-show="!propertyBasicsCtrl.property.parent_id">
+                <div class="portlet-body">
+                    <div id="gmap_geocoding" class="gmaps"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-md-line-input" ng-if="!propertyBasicsCtrl.property.parent_id">
+            <select class="form-control" id="properyType"
+                    ng-model="propertyBasicsCtrl.property.property_type_id" ng-required="true"
+                    ng-options="key|number as value for (key,value) in propertyBasicsCtrl.propertiesTypes">
+            </select>
+            <label for="properyType">{{'Property type' | translate}}</label>
+        </div>
+
+        <div class="row" ng-if="!propertyBasicsCtrl.property.parent_id">
+            <div class="col-md-12">
+                <div ng-repeat="item in propertyBasicsCtrl.property.units track by $index"
+                     property-unit-vf
+                     ng-model="item"
+                     index="{{$index}}">
+                </div>
+            </div>
+            <div class="col-md-12 margin-top-m margin-bottom-l">
+                <a class="btn green button-save" ng-click="propertyBasicsCtrl.addUnit()">
+                    <i class="fa fa-plus"></i>{{'Add unit' | translate}} </a>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-40">
+            <div class="col-md-12">
+                <div class="form-group  form-md-line-input">
+                    <label for="fdescription">{{'Description' | translate}}</label>
+                    <textarea class="form-control" id="fdescription" name="fdescription" placeholder="{{'Add property description here...' | translate}}"
+                           ng-model="propertyBasicsCtrl.property.description"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="margin-bottom-40">
+            <div dropzone form-data="{property_id:propertyBasicsCtrl.property.id}"
+                 remove-file-dropzone="propertyBasicsCtrl.removeFileFromUpload(file)"
+                 files="propertyBasicsCtrl.property.photos"
+                 config="{url:'properties/photos/upload'}" id="dropzone_basic" class="dropzone"
+                 style="border: 3px dashed #ccc;margin-bottom: 30px;padding: 30px;">
+                <div class="dz-default dz-message">
+                    <h3 ng-show="(!propertyBasicsCtrl.property.photos || !propertyBasicsCtrl.property.photos.length)"
+                        class="block font-green"
+                        style="text-align: center;">
+                        {{'Add photos to gallery' | translate}}
+                        <br>
+                        <small style="color:#999">{{'Drag and drop or Click to select' |
+                            translate}}
+                        </small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="margin-bottom-40">
+            <div rt-amenities amenities-list="propertyBasicsCtrl.amenities"
+                 property-amenities="propertyBasicsCtrl.property.amenities"
+                 property-type-id="propertyBasicsCtrl.property.property_type_id"></div>
+        </div>
+
+        <div class="form-actions">
+            <div class="form-group">
+                <a ng-click="((propertyBasicsCtrl.form.$valid) ? propertyBasicsCtrl.saveProperty():false)"
+                   ng-disabled="(propertyBasicsCtrl.form.$invalid)"
+                   class="btn blue button-next">
+                    {{'Save' | translate}} <i
+                        class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title tabbable-line">                            
+                            <div class="caption font-green-sharp">
+                                <i class="icon-settings font-green-sharp"></i>
+                                <span class="caption-subject bold uppercase">{{'Contract Work Bench' | translate}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_1_1">                                    
+                                    <form ng-submit="ContractTemplateCtrl.saveData()"
+                                          novalidate role="form" class="" name="templateForm">
+                                        <div class="row">
+                                            <div class="col-md-4 margin-top-m">                                                
+                                                <div class="form-group form-md-line-input">                                                    
+                                                    <select class="form-control" id="properties"
+                                                            ng-change="ContractTemplateCtrl.countryChanged()"
+                                                            data-ng-model="ContractTemplateCtrl.record.countryId"
+                                                            data-ng-options="c.id as c.title for c in app.countries">
+                                                    </select>
+                                                    <label>{{'Country' | translate}}</label>
+                                                    <span class="has-error"
+                                                      ng-show="(templateForm.$submitted && !ContractTemplateCtrl.record.countryId)">
+                                                        <span style="opacity: 1"
+                                                              class="help-block help-block-error">
+                                                        {{'Country must be selected' | translate}}
+                                                        </span>
+                                                    </span>
+                                                    
+                                                </div>
+                                                <div class="form-group form-md-line-input">
+                                                    <select class="form-control" id="properties"
+                                                            ng-change="ContractTemplateCtrl.contractTypeChanged()"
+                                                            data-ng-model="ContractTemplateCtrl.record.contractTypeId"
+                                                            data-ng-options="c.id as c.title for c in app.contract_types">
+                                                    </select>
+                                                    <label>{{'Contract level' | translate}}</label>             
+                                                    <span class="has-error"
+                                                      ng-show="(templateForm.$submitted && !ContractTemplateCtrl.record.contractTypeId)">
+                                                        <span style="opacity: 1"
+                                                              class="help-block help-block-error">
+                                                        {{'Contract level must be selected' | translate}}
+                                                        </span>
+                                                    </span>
+                                                </div>
+
+                                                <div class="form-group form-md-line-input">
+                                                    <select class="form-control" id="properties"
+                                                            ng-disabled="!ContractTemplateCtrl.propEnable"
+                                                            ng-change="ContractTemplateCtrl.propertyChanged()"
+                                                            data-ng-model="ContractTemplateCtrl.record.propertyId"
+                                                            data-ng-options="property.id as property.title for property in ContractTemplateCtrl.availablePropertyList">                          
+                                                    </select>
+                                                    <label>{{'Properties and units' | translate}}</label>             
+                                                    <span class="has-error"
+                                                      ng-show="(templateForm.$submitted && ContractTemplateCtrl.propEnable && !ContractTemplateCtrl.record.propertyId)">
+                                                        <span style="opacity: 1"
+                                                              class="help-block help-block-error">
+                                                        {{'Property or unit must be selected' | translate}}
+                                                        </span>
+                                                    </span>
+                                                </div>
+
+                                                <div class="form-group form-md-line-input" style="padding-top: 30px;margin-right: 20px">
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="checkbox_t" class="md-check" ng-model="ContractTemplateCtrl.record.useAsAddendum">
+                                                        <label for="checkbox_t">
+                                                            <span></span>
+                                                            <span class="check"></span>
+                                                            <span class="box"></span>
+                                                            {{'Use as addendum' | translate}}</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group form-md-line-input">
+                                                    
+                                                </div>
+                                                <div class="margin-top-20">                                            
+                                                    <button type="submit" class="btn green-haze">{{'Save Changes' |
+                                                        translate}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!-- html editor -->
+                                            <div class="col-md-7 margin-top-m" ng-show="(ContractTemplateCtrl.record.contractTypeId == 3 || ContractTemplateCtrl.record.contractTypeId == 4)">
+                                                <textarea ui-tinymce="ContractTemplateCtrl.tinymceOptions" ng-model="ContractTemplateCtrl.record.template"></textarea>
+                                            </div>  
+
+                                            <div class="col-md-7 margin-top-m" ng-show="(ContractTemplateCtrl.record.contractTypeId == 2)">
+                                                <textarea ui-tinymce="ContractTemplateCtrl.tinymceOptionsForLandlord" ng-model="ContractTemplateCtrl.record.template"></textarea>
+                                            </div> 
+
+                                            <div class="col-md-7 margin-top-m" ng-show="(ContractTemplateCtrl.record.contractTypeId == 1)">
+                                                <textarea ui-tinymce="ContractTemplateCtrl.tinymceOptionsForDefault" ng-model="ContractTemplateCtrl.record.template"></textarea>
+                                            </div>                                          
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

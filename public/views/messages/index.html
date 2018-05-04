@@ -1,0 +1,175 @@
+<!-- Tags modal -->
+<div class="modal" id="manage-tags-modal" aria-hidden="true" style="overflow: visible;">
+    <script type="text/ng-template" id="tagModalContent.html">
+        <div class="modal-dialog" style="margin-top:85px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title uppercase">{{'Manage your tags' | translate}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{'Name' | translate}}</th>
+                                <th>{{'Color' | translate}}</th>
+                                <th>{{'Icon' | translate}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="tag in tags.all track by tag.name">
+                            <td>{{ tag.name }}</td>
+                            <td>
+                                <i class="fa fa-circle" ng-style="{color: tag.color}"></i>
+                            </td>
+                            <td>
+                                <i class="fa fa-{{tag.icon}}"></i>
+                            </td>
+                            <td>
+                                <a ng-click="setEditTagInModal($index)" class="btn btn-sm btn-circle blue" tooltip="Edit">
+                                    <i class="fa fa-pencil" ng-if="$index != editTagInModal" ></i>
+                                    <i class="fa fa-arrow-down" ng-if="$index == editTagInModal" ></i>
+                                </a>
+                                <a ng-click="deleteTag($index)" class="btn btn-sm btn-circle red" tooltip="Delete"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="tags.all.length <= 0">
+                            <td colspan="4">{{'No tags have been found. Add some first.' | translate}}</td>
+                        </tr>
+                        <tr ng-if="editTagInModal >= 0">
+                            <td colspan="4">
+                                <form class="form-inline">
+                                    <!-- Name field -->
+                                    <input type="text" class="form-control" placeholder="{{'Tag name' | translate}}" ng-model="tags.all[editTagInModal].name"/>
+                                    <!-- Color selection -->
+                                    <div class="form-group dropdown">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span ng-style="{color: tags.all[editTagInModal].color}"><i class="fa fa-circle"></i></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li ng-repeat="color in colors">
+                                                <a ng-click="changeColor(color.hex)"><i class="fa fa-circle" ng-style="{color: color.hex}"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Icon selection -->
+                                    <div class="btn-group ui-iconpicker dropdown">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-{{ tags.all[editTagInModal].icon }}"></i><span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li ng-repeat="icon in availableIcons">
+                                                <button class="btn btn-default" type="button" ng-click="tags.all[editTagInModal].icon = icon"><span class="fa fa-{{ icon }}"></span></button>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Form actions -->
+                                    <a class="btn green" ng-click="saveEditTagInModal(tags.all[editTagInModal])"><i class="fa fa-floppy-o"></i> {{ 'Save' | translate }}</a>
+                                    <a class="btn red" ng-click="cancelEditTagInModal()"><i class="fa fa-times"></i> {{ 'Cancel' | translate }}</a>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr ng-if="editTagInModal < 0">
+                            <td colspan="4">
+                                <form class="form-inline">
+                                    <input type="text" class="form-control" placeholder="Tag name" ng-model="newTagForm"/>
+                                    <a class="btn green" ng-disabled="!(newTagForm.length > 0) || newTagFormDisabled" ng-click="createNewTag(newTagForm)">
+                                        <i class="fa fa-floppy-o"></i>
+                                        {{ 'Save' | translate }}
+                                    </a>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </script>
+</div>
+<!-- End of tags modal -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div ui-view></div>
+
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="icon-envelope font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase">{{'Messages' | translate }}</span>
+                </div>
+                <div class="pull-right">
+                    <a class="btn blue" ng-click="manageTags()"><i class="fa fa-tag"></i> {{ 'Tags' | translate }}</a>
+                    <a href="#/messages/compose" class="btn green"><i class="fa fa-pencil"></i> {{ 'Compose' | translate }}</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container">
+                    <table class="table table-bordered table-striped table-condensed flip-content" id="messages-dt">
+                        <thead>
+                        <tr role="row" class="heading">
+                            <th></th>
+                            <th>{{'From' | translate }}</th>
+                            <th>{{'Subject' | translate }}</th>
+                            <th>{{'Date' | translate}}</th>
+                            <th>{{'Actions' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="message in messages track by $index">
+                            <td class="text-center">
+                                <!-- Starred -->
+                                <a ng-click="toggleStar($index)" class="">
+                                    <i class="fa fa-star" ng-show="{{message.pivot.starred == '1'}}"></i>
+                                    <i class="fa fa-star-o" ng-show="{{message.pivot.starred == '0'}}"></i>
+                                </a>
+                                <!-- Priority -->
+                                <i class="fa fa-exclamation" ng-show="{{message.priority == 1}}" style="color: #c23f44"></i><i class="fa fa-arrow-down" ng-show="{{message.priority == -1}}" style="color: #26a69a;"></i>
+                            </td>
+                            <!-- Sender name and avatar -->
+                            <td>
+                                <!-- Show user avatar -->
+                                <img src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/avatars/avatar9.png"
+                                     ng-if="message.sender.profile.avatar == null" style="width: 20px;">
+                                <img ng-src="{{message.sender.profile.avatar}}"
+                                     ng-if="message.sender.profile.avatar != null" style="width: 20px;">
+                                <!-- End of user avatar -->
+                                <a href="#/users/{{message.sender.id}}">{{message.sender.name}}</a>
+                            </td>
+                            <!-- Subject, priority and NEW tag -->
+                            <td>
+                                <span class="badge" ng-hide="{{ message.pivot.read == 1 }}">{{ 'NEW' | translate }}</span>
+                                <a href="#/messages/view/{{message.id}}" ng-class="message.pivot.read == 0 ? 'bold' : ''">{{message.subject}}</a>
+                                <span class="tags pull-right" ng-if="message.tags.length > 0" ng-repeat="tag in message.tags">
+                                    <a href="#/messages/tags/{{tag.name}}" class="badge" ng-style="{'background-color': (tag.color ? '#' + tag.color : 'gray')}">
+                                        <i ng-if="tag.icon" class="fa fa-{{tag.icon}}"></i> {{ (!tag.icon ? tag.name : '') }}
+                                    </a>
+                                </span>
+                            </td>
+                            <!-- Message recieved date -->
+                            <td><span am-time-ago="message.created_at" am-parse="YYYY-MM-DD HH:mm:ss" tooltip="{{message.created_at}}"></span></td>
+                            <!-- Actions -->
+                            <td>
+                                <a href="#/messages/view/{{message.id}}" class="btn btn-xs btn-circle blue" tooltip="View">
+                                    <i class="fa fa-eye"><span class="hidden-480"></span></i>
+                                </a>
+                                <a href="#/messages/compose/reply/{{message.id}}" class="btn btn-xs btn-circle green" tooltip="Reply">
+                                    <i class="fa fa-reply"><span class="hidden-480"></span></i>
+                                </a>
+                                <a ng-click="deleteMessage(message.id)" class="btn btn-xs btn-circle red" tooltip="Delete">
+                                    <i class="fa fa-trash-o"><span class="hidden-480"></span></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

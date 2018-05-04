@@ -1,0 +1,282 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="profile-sidebar" style="width: 250px;">
+            <div class="portlet light profile-sidebar-portlet">
+
+                <div class="profile-userpic">
+                    <img ng-if="tenant.profile.avatar" ng-src="{{tenant.profile.avatar}}" class="img-responsive" alt="">
+                    <img ng-if="!tenant.profile.avatar" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/avatars/avatar9.png" class="img-responsive" alt="">
+                </div>
+                <div class="profile-usertitle" style="padding-bottom:20px;">
+                    <div class="profile-usertitle-name">
+
+                        {{tenant.name}}
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{tenant.email}}
+                    </div>
+                </div>
+                <div class="profile-userbuttons" ng-if="tenant.profile.phone">
+                    <!--<button type="button" class="btn btn-circle green-haze btn-sm">Add</button>-->
+                    <button type="button" class="btn btn-circle btn-danger btn-xs">{{tenant.profile.phone}}</button>
+                </div>
+            </div>
+            <div class="portlet light profile-sidebar-portlet">
+
+
+
+                <div class="profile-proppic" ng-if="tenant.propertyPhotos">
+                    <carousel interval="5000" no-wrap="false">
+                        <slide ng-repeat="photo in tenant.propertyPhotos" active="slide.active">
+                            <img style="width:95%" ng-src="{{photo.file}}" style="margin:auto;"  class="img-responsive">
+                        </slide>
+                    </carousel>
+
+                </div>
+
+
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{tenant.property_data.title}}
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{tenant.property_data.address}}
+                    </div>
+                </div>
+                <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-circle btn-info btn-xs">{{'View Property' | translate}}</button>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li>
+                            <a href="#">
+                                <i class="icon-credit-card"></i>
+                                {{'Finances' | translate}} </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="icon-doc"></i>
+                                {{'Documents' | translate}} </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="icon-users"></i>
+                                {{'Tenants' | translate}} </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- END BEGIN PROFILE SIDEBAR -->
+        <!-- BEGIN PROFILE CONTENT -->
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase"><a ng-click="goBack()" href="javascript:void(0)">&laquo; {{'back' | translate}}</a> | </span>
+                                <span class="caption-subject font-blue-madison bold uppercase">{{'Settings' | translate}}</span>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" onclick="return false;" data-toggle="tab">{{'Tenant Info' | translate}}</a>
+                                </li>
+                                <!--<li>-->
+                                    <!--<a href="#tab_1_2" onclick="return false;" data-toggle="tab">{{'Property' | translate}}</a>-->
+                                <!--</li>-->
+
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active" id="tab_1_1">
+                                    <form ng-submit="updateTenantInfo()" novalidate role="form" class="form-horizontal">
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="name">{{'Name' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="name"
+                                                       ng-model="tenant.name" placeholder="{{'Tenant name' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="email">{{'Email' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="email"
+                                                       ng-model="tenant.email" readonly placeholder="{{'Tenant email' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="start_date">{{'Start Date' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control date-picker" id="start_date"
+                                                       ng-model="tenant.property.start_date" placeholder="{{'Start Date' | translate}}">
+
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="end_date">{{'End Date' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control date-picker" id="end_date"
+                                                       ng-model="tenant.property.end_date" placeholder="{{'End Date' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="collection_day">{{'Collection Day' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="collection_day"
+                                                       ng-model="tenant.property.collection_day" placeholder="{{'Collection Day' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="contract_period">{{'Contract period' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <select class="form-control" id="contract_period" data-ng-model="tenant.property.contract_period"
+                                                        data-ng-options="act for act in ['1','2','3','4']">
+                                                        <option value=""></option>
+                                                </select>
+
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group form-md-line-input">
+                                            <label class="col-md-2 control-label" for="rent">{{'Current Rent' | translate}}</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="rent"
+                                                       ng-model="tenant.property.rent" placeholder="{{'Rent' | translate}}">
+
+                                                <div class="form-control-focus">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="margiv-top-10">
+                                            <button type="submit" class="btn green-haze">{{'Save Changes' | translate}}</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END PROFILE CONTENT -->
+    </div>
+</div>
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">{{'Account Settings' | translate }}</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"
+                       data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form"  name="settingsForm" class="form-horizontal" ng-submit="submitForm(settingsForm.$valid)" novalidate>
+                    <div class="form-body">
+                        <div class="form-group form-md-line-input" ng-class="{ 'has-error' : settingsForm.name.$invalid && !settingsForm.name.$pristine }">
+                            <label class="col-md-2 control-label" for="name">Name</label>
+
+                            <div class="col-md-10">
+                                <input type="text"
+                                       class="form-control"
+                                       id="name"
+                                       name="name"
+                                       ng-model="formData.name" required
+                                       ng-minlength="3"
+                                       placeholder="Enter your name">
+                                <div class="form-control-focus">
+                                </div>
+                                <span class="help-block" ng-show="settingsForm.name.$error.minlength">{{'Field is required' | translate}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input" >
+                            <label class="col-md-2 control-label" for="address">Address</label>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="address" name="address" ng-model="formData.address" required
+                                       placeholder="Address">
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="phone">Phone</label>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone" name="phone" required ng-model="formData.phone">
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="iban">IBAN</label>
+
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="iban" placeholder="Bank IBAN" name="iban"  ng-model="formData.iban">
+
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" ng-disabled="settingsForm.$invalid" class="btn blue">{{'Save Settings' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+-->

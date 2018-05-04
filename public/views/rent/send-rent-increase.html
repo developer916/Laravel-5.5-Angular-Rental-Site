@@ -1,0 +1,189 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="icon-settings font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase">{{'Send Rent Increase' | translate}}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+				<form  novalidate role="form" class="form-horizontal">
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="startDate">{{'Notification start date' | translate}}</label>
+						<div class="col-md-10">
+							<input type="text" name="startDate"  class="form-control date-picker" ng-model="startDate" id="startDate">
+							<div class="form-control-focus">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="endDate">{{'Notification end date' | translate}}</label>
+						<div class="col-md-10">
+							<input type="text" name="endDate"  class="form-control date-picker" ng-model="endDate" id="endDate">
+							<div class="form-control-focus">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="effectiveDate">{{'Rent increase date' | translate}}</label>
+						<div class="col-md-10">
+							<input type="text" name="effectiveDate"  class="form-control date-picker" ng-model="effectiveDate" id="effectiveDate"> {{'(Reference date. The new rent amount will be calculated "as of" this date)' | translate}}
+
+<input type="button" name="btnRecalc" value="{{'Recalculate amounts' | translate}}" class="btn green-haze" ng-click="sendRentIncrease()"/>
+
+<!--
+	<button class="btn green-haze" ng-click="onSubmitRentIncrease()" ng-disabled="sendSubmit" ng-hide="sendHide">{{'Send' | translate}}</button>
+-->
+
+							<div class="form-control-focus">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group form-md-line-input">
+						<label class="col-md-2 control-label" for="emailSubject">{{'Subject' | translate}}</label>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="emailSubject" ng-model="emailSubject">
+							<div class="form-control-focus">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group form-md-line-input has-success">
+						<label class="col-md-2 control-label" for="emailBody">{{'Body' | translate}}</label>
+
+						<div class="col-md-10">
+							<textarea class="form-control" rows="7" id="emailBody" name="emailBody" ng-bind-html="emailBody" ng-model="emailSendBody"></textarea>
+							<div class="form-control-focus">
+							</div>
+						</div>
+					</div>
+					
+					<div class="margin-top-10">
+						<button class="btn green-haze" ng-click="onSubmitRentIncrease()" ng-disabled="sendSubmit" ng-hide="sendHide" style="float: left; margin-bottom:30px;">{{'Send' | translate}}</button>
+						<div class="col-md-3 col-sm-4">
+							<select class="form-control" name="send-method" ng-model="sendMethod">
+								<option value="to-landlord">{{'Test email to Landlord' | translate}}</option>
+								<option value="to-tenant">{{'Actual increases to tenants' | translate}}</option>
+							</select>
+						</div>
+					</div>
+					
+					<table style="width:100% !important; margin-top:30px;" class="table table-bordered table-striped flip-content" ng-if="tenants.length>0">
+						<tr bgcolor="#e2d7c5">
+							<td><input type="checkbox" name="tenant_all" ng-click="toggleAll()" ng-model="isAllSelected"/></td>
+							<td>{{ 'Name'| translate }}</td>
+							<td>{{'Email' | translate}}</td>
+							<td>{{'Current Rent' | translate}}</td>
+							<td>{{'New Rent' | translate}}</td>
+							<td>{{'Location' | translate}}</td>
+							<td>{{'%age' | translate}}</td>
+						</tr>
+						<tr style="color: black" bgcolor="#f6f1e8" ng-repeat="(key,tenant) in tenants" ng-if="tenants.length>0">
+							<td width="40"><input type="checkbox" name="tenant[]" value="{{tenant.name}}" ng-model="tenant.selected" ng-change="optionToggled()"/></td>
+							<td style="color: black">{{tenant.name}}</td>
+							<td style="color: black">{{tenant.email}}<input type="hidden" name="email_{{tenant.id}}" value="{{tenant.email}}" /></td>
+							<td style="color: black">{{tenant.currentRent}}
+								<input type="hidden" name="currentRent_{{tenant.id}}" value="{{tenant.currentRent}}" />
+								<input type="hidden" name="currentService_{{tenant.id}}" value="{{tenant.currentService}}" />
+							</td>
+							<td style="color: black">{{tenant.rent}}
+								<input type="hidden" name="rent_{{tenant.id}}" value="{{tenant.rent}}" />
+							</td>
+							<td style="color: black"> {{tenant.room}}
+								<input type="hidden" name="aptindex_{{tenant.id}}" value="{{tenant.property_id}}" />
+								<input type="hidden" name="roomid_{{tenant.id}}" value="{{tenant.unit_id}}" />
+							</td>
+							<td style="color: black">{{tenant.percentDiff}} %</td>
+						</tr>
+						<tr style="color: black" bgcolor="#f6f1e8" >
+							<td width="40"></td>
+							<td style="color: black"></td>
+							<td style="color: black">{{'Totals' | translate}}</td>
+							<td style="color: black">{{ totalCurRent }}</td>
+							<td style="color: black">{{ totalNewRent }}</td>
+							<td style="color: black">{{ totalDiff }}</td>
+							<td style="color: black">{{ totalPercentDiff }} %</td>
+					</table>
+				</form>
+				
+				<!--
+                <div class="row" style="display: flex;">
+                    <div class="col-md-1" style="position:relative; flex: 1;">
+                        <button ng-click="onSubmitRentIncrease()" class="btn btn-primary" style="position: absolute; bottom: 10px;" ng-disabled="sendSubmit" ng-hide="sendHide">Send</button>
+                    </div>
+                    <div class="col-md-11">
+                        <form name="rent_increase" id="rent_increase" action="" method="post">
+                            <table cellpadding="5" cellspacing="1" width="99%" bgcolor="#556068">
+                                <tr bgcolor="#e2d7c5">
+                                    <td width="150">{{'Notification start date' | translate}}</td>
+                                    <td><input type="text" name="startDate"  class="date-picker" ng-model="startDate" id="startDate"></td>
+                                </tr>
+                                <tr bgcolor="#e2d7c5">
+                                    <td width="90">{{'Notification end date' | translate}}</td>
+                                    <td><input type="text" name="endDate" ng-model="endDate" class="date-picker"></td>
+                                </tr>
+                                <tr bgcolor="#e2d7c5">
+                                    <td width="90">{{'Rent increase date' | translate}}</td>
+                                    <td>
+                                        <input type="text" name="effectiveDate" ng-model="effectiveDate" class="date-picker"> {{'(Reference date. The new rent amount will be calculated "as of" this date)' | translate}}
+                                        <input type="submit" name="btnRecalc" value="Recalculate amounts" />
+                                    </td>
+                                </tr>
+                                <tr bgcolor="#e2d7c5">
+                                    <td width="90">{{'Subject' | translate}}</td>
+                                    <td><input type="text" name="emailSubject" style="width: 100%" ng-model="emailSubject"></td>
+                                </tr>
+                                <tr bgcolor="#e2d7c5">
+                                    <td width="90">{{'Body' | translate}}</td>
+                                        <td><textarea name="emailBody" style="width: 100%; font-size: 13px;" rows="7" ng-bind-html="emailBody" ng-model="emailSendBody" id="emailBody"></textarea></td>
+                                </tr>
+                            </table>
+                            <br>
+                            <table cellpadding="5" cellspacing="1" width="99%" bgcolor="white" ng-if="tenants.length>0">
+                                <tr bgcolor="#e2d7c5">
+                                    <td><input type="checkbox" name="tenant_all" ng-click="toggleAll()" ng-model="isAllSelected"/></td>
+                                    <td>{{ 'Name'| translate }}</td>
+                                    <td>{{'Email' | translate}}</td>
+                                    <td>{{'Current Rent' | translate}}</td>
+                                    <td>{{'New Rent' | translate}}</td>
+                                    <td>{{'Room' | translate}}</td>
+                                    <td>{{'%age' | translate}}</td>
+                                </tr>
+                                <tr style="color: black" bgcolor="#f6f1e8" ng-repeat="(key,tenant) in tenants" ng-if="tenants.length>0">
+                                    <td width="40"><input type="checkbox" name="tenant[]" value="{{tenant.name}}" ng-model="tenant.selected" ng-change="optionToggled()"/></td>
+                                    <td style="color: black">{{tenant.name}}</td>
+                                    <td style="color: black">{{tenant.email}}<input type="hidden" name="email_{{tenant.id}}" value="{{tenant.email}}" /></td>
+                                    <td style="color: black">{{tenant.currentRent}}
+                                        <input type="hidden" name="currentRent_{{tenant.id}}" value="{{tenant.currentRent}}" />
+                                        <input type="hidden" name="currentService_{{tenant.id}}" value="{{tenant.currentService}}" />
+                                    </td>
+                                    <td style="color: black">{{tenant.rent}}
+                                        <input type="hidden" name="rent_{{tenant.id}}" value="{{tenant.rent}}" />
+                                    </td>
+                                    <td style="color: black"> {{tenant.room}}
+                                        <input type="hidden" name="aptindex_{{tenant.id}}" value="{{tenant.property_id}}" />
+                                        <input type="hidden" name="roomid_{{tenant.id}}" value="{{tenant.unit_id}}" />
+                                    </td>
+                                    <td style="color: black">{{tenant.rent/tenant.currentRent*100-100}} %</td>
+                                </tr>
+                                <tr style="color: black" bgcolor="#f6f1e8" >
+                                    <td width="40"></td>
+                                    <td style="color: black"></td>
+                                    <td style="color: black">{{'Totals' | translate}}</td>
+                                    <td style="color: black">{{ totalCurRent }}</td>
+                                    <td style="color: black">{{ totalNewRent }}</td>
+                                    <td style="color: black">{{ totalNewRent-totalCurRent }}</td>
+                                    <td style="color: black">{{ totalNewRent/totalCurRent*100-100}} %</td>
+                            </table>
+                        </form>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

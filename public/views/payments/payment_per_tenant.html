@@ -1,0 +1,175 @@
+<style type="text/css">
+    .paymentsTable,
+    .chargesTable	{
+        border-collapse: collapse;
+    }
+    .paymentsTable th,
+    .chargesTable th {
+        text-align: left;
+        font-weight: bold;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+    .paymentsTable thead td,
+    .chargesTable thead td {
+        text-align: left;
+        font-weight: bold;
+    }
+    .paymentsTable tbody td,
+    .chargesTable tbody td {
+        border: 1px solid gray;
+    }
+    .paymentsDueTable th {
+        text-align: left;
+        font-weight: bold;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="fa fa-money"></i>
+                    <span class="caption-subject bold uppercase">{{'Payments per Tenant' | translate }}</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-4" ng-hide="tenant_role">
+                        <div class="form-group">
+                            <form name="uploadForm" method="post" enctype="multipart/form-data" style="margin-top:20px;">
+                                <input name="importFile" id="importFile" type="file"  ng-model="payment.file" onchange="angular.element(this).scope().setFiles(this)" style="display: inline-block" accept=".csv"/>
+                                <input type="button" id="btnImport" name="btnImport" value="Import" class="btn btn-primary" ng-click="importFileUpload()"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group form-md-line-input">
+                            <select class="form-control" name="tenant" id="tenant"  ng-model='payments.tenant'
+                                    ng-options="c.id as c.name for c in tenants" ng-change="updatePayment()">
+                            </select>
+                            <label>{{'Tenants' | translate}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4" ng-hide="tenant_role">
+                        <div class="form-group form-md-line-input">
+                            <p class="form-control">{{payments.last_import_date}}</p>
+                            <label>{{'Last import date' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 50px;">
+                    <div class="col-md-4 col-sm-12">
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>{{'TOTAL RENT DUE' | translate}}</td>
+                                    <td>&euro;{{ paymentList.totalDue }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'TOTAL RENT PAID' | translate}}</td>
+                                    <td>&euro;{{ paymentList.totalRentPayments }} ({{ paymentList.totalRentDifference }})</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'TOTAL CHARGES' | translate}}</td>
+                                    <td>&euro;{{ paymentList.charges }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'TOTAL CREDITS' | translate}}</td>
+                                    <td>&euro; {{ paymentList.credits}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Early termination fee' | translate}}</td>
+                                    <td>&euro;{{ paymentList.earlyTerminationFee}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{'Net deposit return' | translate}}</b></td>
+                                    <td><b>&euro;{{ paymentList.depositReturn}}</b></td>
+
+                                </tr>
+                                <tr>
+                                    <td>{{'Contract end date:' | translate}}</td>
+                                    <td> {{ paymentList.contractEndDate}}</td>
+                                </tr>
+                                <tr ng-if="(paymentList.isDeregistered == 1 && tenant_role == 1)">
+                                    <td colspan="2" >
+                                        <a href="{{ paymentList.deregistrationProofUrl}}">{{'Proof of deregistration' | translate}}</a>
+                                    </td>
+                                </tr>
+                                <tr ng-if="(paymentList.isDeregistered == 0  && tenant_role == 1)">
+                                    <td colspan="2">
+                                        <form name="deregUploadForm" method="post" enctype="multipart/form-data">
+                                            <span> {{'Proof of deregistration:' | translate}}</span>
+                                            <input name="deregFile" id="deregFile" type="file" style="display: inline-block" onchange="angular.element(this).scope().setDeregFiles(this)"/>
+                                            <input type="button" id="btnUploadDereg" name="btnUploadDereg" value="Upload" ng-click="DeregFileUpload()" class="btn btn-primary"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <table width="100%" class="paymentsDueTable">
+                            <tr>
+                                <th colspan="2">{{'RENT DUE PER DATE' | translate}}</th>
+                                <th>{{'Due' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="p in paymentList.paymentsDue">
+                                <td width="10%">{{p.date}}</td>
+                                <td>{{p.description}}</td>
+                                <td>&euro;{{p.amount}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 50px; margin-bottom: 50px;" >
+                    <div class="col-md-12">
+                        <table style="width:100%" class="paymentsTable">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">{{'PAYMENTS' | translate}}</th>
+                                </tr>
+                                <tr>
+                                    <td width="5%">{{'Nr' | translate}}</th>
+                                    <td width="10%">{{'Amount' | translate}}</th>
+                                    <td width="70%">{{'Comments' | translate}}</th>
+                                    <td width="15%">{{'Date' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in paymentList.payments">
+                                    <td>{{ p.index }}</td>
+                                    <td>&euro;{{ p.amount}}</td>
+                                    <td>{{p.comments}}</td>
+                                    <td>{{p.date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style="width: 100%; margin-top:30px;" class="chargesTable">
+                            <thead>
+                            <tr>
+                                <th colspan="3"> {{'CHARGES AND CREDITS' | translate}}</th>
+                            </tr>
+                            <tr>
+                                <td width="15%">{{'Amount' | translate}}</th>
+                                <td width="70%">{{'Comments' | translate}}</th>
+                                <td width="15%">{{'Date' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in paymentList.chargesCredits">
+                                    <td>&euro;{{p.amount }}</td>
+                                    <td>{{p.comments}}</td>
+                                    <td>{{p.date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

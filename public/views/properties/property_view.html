@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="profile-sidebar col-md-3 col-sm-4 col-xs-12">
+            <div class="property-sidebar-portlet portlet light">
+                <div ng-if="(propertyCtrl.currentState=='property-view.info')">
+                    <div dropzone form-data="{property_id:propertyCtrl.property.id,is_main:1}"
+                         files="propertyCtrl.property.photo"
+                         config="{url:'properties/photos/upload',maxFiles:1}" id="dropzone_photo" class="dropzone property-profile-dropzone">
+                        <div class="dz-default dz-message">
+                            <h3 ng-show="(!propertyCtrl.photo)" class="block font-green"
+                                style="text-align: center;">
+                                {{'Add your photo' | translate}}
+                                <br>
+                                <small style="color:#999">{{'Drag and drop or Click to select' |
+                                    translate}}
+                                </small>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-profile" ng-if="(propertyCtrl.currentState!='property-view.info')">
+                    <img ng-src="{{ (propertyCtrl.property.photo[0].file) ? propertyCtrl.property.photo[0].file: 'https://d6juqcfpyfjk1.cloudfront.net/assets/default-property-350x225.png' }}" />
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{propertyCtrl.property.title}}
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{propertyCtrl.property.address}}
+                    </div>
+                </div>
+                <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-circle btn-success btn-sm">
+                        {{propertyCtrl.property.is_pro ? ('Pro' | translate) : ('Free' | translate)}}
+                    </button>
+                    <button type="button" ng-if="propertyCtrl.property.is_autoshare" class="btn btn-circle btn-success btn-sm">{{'Auto listing' | translate}}</button>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li ui-sref-active="active">
+                            <a ng-click="propertyCtrl.go('property-view.overview')"
+                               ng-disabled="!propertyCtrl.property.status">
+                                <i class="icon-speedometer"></i>
+                                {{'Overview' | translate}} </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ng-click="propertyCtrl.go('property-view.info')">
+                                <i class="icon-home"></i>
+                                {{'Property info' | translate}} </a>
+                        </li>
+
+                        <li ui-sref-active="active" ng-show="!propertyCtrl.property.parent_id">
+                            <a ng-click="propertyCtrl.go('property-view.transactions')"
+                               ng-disabled="!propertyCtrl.property.status">
+                                <i class="icon-credit-card"></i>
+                                {{'Transactions' | translate}} </a>
+                        </li>
+
+                        <li ui-sref-active="active" ng-show="!propertyCtrl.property.parent_id">
+                            <a ng-click="propertyCtrl.go('property-view.tenants')"
+                               ng-disabled="!propertyCtrl.property.status">
+                                <i class="icon-user"></i>
+                                {{'Tenants' | translate}} </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ng-click="propertyCtrl.go('property-view.documents')" ng-disabled="!propertyCtrl.property.status">
+                                <i class="icon-doc"></i>
+                                {{'Documents' | translate}} </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ng-click="propertyCtrl.go('property-view.scaccounts')" ng-disabled="!propertyCtrl.property.status">
+                                <i class="icon-doc"></i>
+                                {{'Service cost accounts' | translate}} </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ng-click="propertyCtrl.go('property-view.settings')"
+                               ng-disabled="!propertyCtrl.property.status">
+                                <i class="icon-settings"></i>
+                                {{'Settings' | translate}} </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="profile-content col-md-9 col-sm-8 col-xs-12" style="padding: 0px" ui-view>
+        </div>
+    </div>
+</div>
+</div>
+<style>
+    .nav a[disabled] {
+        font-style: italic;
+    }
+</style>
+

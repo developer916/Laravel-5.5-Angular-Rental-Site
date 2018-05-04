@@ -1,0 +1,122 @@
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-green-sharp">
+            <i class="icon-pencil font-green-sharp"></i>
+            <span class="caption-subject bold uppercase">{{'Compose' | translate }}</span>
+        </div>
+
+    </div>
+    <div class="portlet-body form">
+        <form role="form" name="composeMessage" ng-submit="sendMessage()" ng-show="!loadingDetails">
+            <div class="form-body row">
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input">
+                        {{item.name}}
+                        <ui-select multiple ng-model="compose.recipients" id="compose_recipient" class="form-control">
+                            <!-- Selected users -->
+                            <ui-select-match placeholder="{{ 'Select one or more recipients' | translate }}">
+                                <!-- Selected user badge -->
+                                <span ng-if="rType($item.id) == 'u'">
+                                    <img class="avatar" ng-if="$item.profile.avatar" ng-src="{{$item.profile.avatar}}" alt="{{$item.name}}" style="height: 15px;">
+                                    <img class="avatar" ng-if="!$item.profile.avatar" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/avatars/avatar9.png" alt="{{$item.name}}" style="height: 15px;">
+                                    {{$item.name}}
+                                </span>
+                                <!-- Selected property badge -->
+                                <span ng-if="rType($item.id) == 'p'">
+                                    <img class="avatar" ng-if="$item.media" ng-src="{{$item.profile.avatar}}" alt="{{$item.name}}" style="height: 15px;">
+                                    <img class="avatar" ng-if="!$item.media" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/default-building-300x300.png" alt="{{$item.name}}" style="height: 15px;">
+                                    {{$item.title}}
+                                </span>
+                            </ui-select-match>
+                            <!-- Possible recipients -->
+                            <ui-select-choices repeat="r in recipients | filter: $select.search track by r.id">
+                                <!-- User recipient -->
+                                <div ng-if="rType(r.id) == 'u'">
+                                    <div>
+                                        <img class="avatar" ng-if="r.profile.avatar" ng-src="{{r.profile.avatar}}" alt="{{r.name}}" style="height: 18px;"/>
+                                        <img class="avatar" ng-if="!r.profile.avatar" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/avatars/avatar9.png" alt="{{r.name}}" style="height: 18px;"/>
+                                        <span class="bold" ng-bind-html="r.name | highlight: $select.search"></span> <span class="label label-warning"><i class="fa fa-user"></i> User</span>
+                                    </div>
+                                    <div>{{ r.email }}</div>
+                                </div>
+                                <!-- End user recipient -->
+
+                                <!-- Property recipient -->
+                                <div ng-if="rType(r.id) == 'p'">
+                                    <div>
+                                        <img class="avatar" ng-if="r.media" ng-src="r.media" alt="r.name" style="height: 18px;"/>
+                                        <img class="avatar" ng-if="!r.media" src="https://s3.eu-central-1.amazonaws.com/rentling/rentling_email_assets/default-building-300x300.png" alt="r.name" style="height: 18px;"/>
+                                        <span class="bold" ng-bind-html="r.title | highlight: $select.search"></span> <span class="label label-info"><i class="fa fa-building"></i> Property</span>
+                                    </div>
+                                    <div>{{ r.street }} {{ r.street_no }} - {{ r.city }}</div>
+                                </div>
+                                <!-- End property recipient -->
+                            </ui-select-choices>
+                            <!-- End possible recipients -->
+                        </ui-select>
+                        <label>{{ 'Recipients' | translate }}</label>
+                    </div>
+                </div>
+                <div class="form-group form-md-line-input col-md-6">
+                    <div class="input-icon right">
+                        <input type="text" class="form-control" id="compose_subject" ng-model="compose.subject" placeholder="{{ 'What is your message about?' | translate }}" required/>
+                        <label for="compose_subject">{{ 'Subject' | translate }}</label>
+                        <span class="help-block">{{ 'Enter a subject for your message' | translate }}</span>
+                        <i class="icon-pencil"></i>
+                    </div>
+                </div>
+                <div class="form-group form-md-radios col-md-6" style="padding-top: 20px;">
+                    <label>{{'Priority' | translate }}</label>
+                    <div class="md-radio-inline">
+                        <div class="md-radio">
+                            <input type="radio" id="compose_priority_low" name="compose_priority" class="md-radiobtn" ng-model="compose.priority" value="-1" />
+                            <label for="compose_priority_low">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                                {{'Low priority' | translate }}
+                            </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="compose_priority_normal" name="compose_priority" class="md-radiobtn" ng-init="compose.priority=0" ng-model="compose.priority" value="0" checked="checked"/>
+                            <label for="compose_priority_normal">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                                {{'Normal priority' | translate }}
+                            </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="compose_priority_high" name="compose_priority" class="md-radiobtn" ng-model="compose.priority" value="1" />
+                            <label for="compose_priority_high">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                                {{'High priority' | translate }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input">
+                        <textarea class="form-control" rows="2" id="compose_text" ng-model="compose.text" required placeholder="Write your message here"></textarea>
+                        <label for="compose_text">{{'Message' | translate }}</label>
+                        <span class="help-block">{{'Write your message here' | translate }}</span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-actions">
+                        <a href="#/messages" class="btn red">{{'Cancel' | translate }}</a>
+                        <input type="submit" class="btn green" ng-disabled="sendingMessage" value="{{'Send' | translate }}"/>
+                        <span ng-show="isAddressed('p')" class="pull-right" ng-init="compose.announcement = false">
+                            This message is an announcement:
+                            <input bs-switch ng-model="compose.announcement" type="checkbox" switch-size="small"
+                                switch-on-text="Yes" switch-off-text="No" switch-label="<i class='fa fa-bullhorn'></i>">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <p class="loading-msg" ng-show="loadingDetails">Loading..</p>
+    </div>
+</div>
