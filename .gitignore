@@ -1,0 +1,65 @@
+# Assets
+composer.phar
+package.json
+package-lock.json
+/node_modules
+/vendor
+/storage/debugbar
+
+# Builds paths (included to encourage builds)
+/public/appfiles/*/*
+/public/appfiles/*/*/*
+
+public/languages/*
+
+
+# ignore build files
+public/css/rt.css
+public/css/rt.css.map
+public/js/rt.js
+public/js/rt.js.map
+
+/public/build/
+/public/fonts/
+/public/img/
+/public/uploads/
+/public/js/admin.js
+/public/css/admin.css
+/public/languages/
+/resources/vendor/
+/resources/lang/*/admin/admin.php
+
+/www/images
+
+# Environment
+.env
+/config/local
+
+*.swp
+npm-debug.log
+drop.sh
+
+
+# IDEs
+/.idea
+/.idea/workspace.xml
+.project
+.phpstorm.meta.php
+/.settings
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+!public/appfiles/
+!public/appfiles/*/thumbs/
+!index.html
+!.gitkeep
+
+
+_bowerrc
+_editorconfig
+_gitattributes
+_gitignore
+*.map
